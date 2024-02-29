@@ -1,7 +1,8 @@
 import User from '../models/user.modle.js';
 import bcryptjs from 'bcryptjs';
+import { errorHandler } from '../../utils/error.js';
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
   // console.log(req.body);
   const { username, email, password } = req.body;
   if (
@@ -12,7 +13,8 @@ export const signup = async (req, res) => {
     email === '' ||
     password === ''
   ) {
-    return res.status(400).json({ message: 'All fields are required' });
+    // return res.status(400).json({ message: 'All fields are required' });
+    next(errorHandler(400, 'All fields are required'));
   }
 
   //hashpwd
@@ -28,7 +30,8 @@ export const signup = async (req, res) => {
     res.json({ message: 'signup successfully' });
   } catch (err) {
     // console.log(err);
-    return res.status(500).json({ message: err.message });
+    // return res.status(500).json({ message: err.message });
+    next(err);
   }
   await newUser.save();
   res.json({ message: 'signup successfully' });
