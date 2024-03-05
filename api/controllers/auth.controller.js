@@ -33,6 +33,4 @@ export const signup = async (req, res, next) => {
     // return res.status(500).json({ message: err.message });
     next(err);
   }
-  await newUser.save();
-  res.json({ message: 'signup successfully' });
 };
