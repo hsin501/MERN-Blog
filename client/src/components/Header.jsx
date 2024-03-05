@@ -35,8 +35,8 @@ export default function Header() {
           <PiMoonFill />
         </Button>
         <Link to='/sign-up'>
-          <Button gradientDuoTone='purpleToBlue ' outline>
-            登入
+          <Button gradientDuoTone='purpleToBlue' outline>
+            註冊
           </Button>
         </Link>
         <Navbar.Toggle />
