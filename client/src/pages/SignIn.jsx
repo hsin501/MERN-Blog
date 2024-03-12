@@ -1,11 +1,21 @@
+import { useSelector } from 'react-redux';
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {
+  signInStart,
+  signInFailure,
+  signInSuccess,
+} from '../redux/user/userSlice';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // const [errorMsg, setErrorMsg] = useState(null);
+  // const [loading, setLoading] = useState(false);
+  const { loading, error: errorMsg } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -19,11 +29,11 @@ export default function SignIn() {
     e.preventDefault();
 
     if (!formData.email || !formData.password) {
-      return setErrorMsg('請輸入所有資料!');
+      // return setErrorMsg('請輸入所有資料!');
+      return dispatch(signInFailure('請輸入所有資料!'));
     }
     try {
-      setLoading(true);
-      setErrorMsg(null);
+      dispatch(signInStart());
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -32,16 +42,19 @@ export default function SignIn() {
 
       const data = await res.json();
       if (data.success === false) {
-        return setErrorMsg(data.message);
+        // return setErrorMsg(data.message);
+        dispatch(signInFailure(data.message));
       }
-      setLoading(false);
+      // setLoading(false);
       if (res.ok) {
+        dispatch(signInSuccess(data));
         navigate('/');
       }
     } catch (error) {
       // console.log('發生錯誤', error);
-      setErrorMsg('發生錯誤，請稍後再試!');
-      setLoading(false);
+      // setErrorMsg('發生錯誤，請稍後再試!');
+      // setLoading(false);
+      dispatch(signInFailure(error.message));
     }
   };
   return (
@@ -88,7 +101,7 @@ export default function SignIn() {
               {loading ? (
                 <>
                   <Spinner size='sm' />
-                  <span className='pl-3'>註冊中...</span>
+                  <span className='pl-3'>登入中...</span>
                 </>
               ) : (
                 '登入'
