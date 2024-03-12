@@ -2,7 +2,7 @@ import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function SignUp() {
+export default function SignIn() {
   const [formData, setFormData] = useState({});
   const [errorMsg, setErrorMsg] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -17,17 +17,14 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (formData.username.length < 3 || formData.username.length > 20) {
-    //   alert('用戶名長度需在3~20之間');
-    //   return;
-    // }
-    if (!formData.username || !formData.email || !formData.password) {
+
+    if (!formData.email || !formData.password) {
       return setErrorMsg('請輸入所有資料!');
     }
     try {
       setLoading(true);
       setErrorMsg(null);
-      const res = await fetch('/api/auth/signup', {
+      const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -39,7 +36,7 @@ export default function SignUp() {
       }
       setLoading(false);
       if (res.ok) {
-        navigate('/sign-in');
+        navigate('/');
       }
     } catch (error) {
       // console.log('發生錯誤', error);
@@ -59,21 +56,12 @@ export default function SignUp() {
             Blog
           </Link>
           <p className='text-sm mt-5'>
-            這裡是星星的部落格，你可以使用信箱及密碼或使用Google帳號進行註冊
+            這裡是星星的部落格，你可以使用信箱及密碼或使用Google帳號登入
           </p>
         </div>
         {/* right */}
         <div className='flex-1'>
           <form className='flex flex-col gap-4 ' onSubmit={handleSubmit}>
-            <div>
-              <Label value='Your username' />
-              <TextInput
-                type='text'
-                placeholder='輸入用戶名...'
-                id='username'
-                onChange={handleChange}
-              />
-            </div>
             <div>
               <Label value='Your email' />
               <TextInput
@@ -87,7 +75,7 @@ export default function SignUp() {
               <Label value='Your password' />
               <TextInput
                 type='password'
-                placeholder='輸入密碼...'
+                placeholder='********'
                 id='password'
                 onChange={handleChange}
               />
@@ -103,13 +91,13 @@ export default function SignUp() {
                   <span className='pl-3'>註冊中...</span>
                 </>
               ) : (
-                '註冊'
+                '登入'
               )}
             </Button>
             <div className='flex gap-2 text-sm mt-5'>
-              <span>已有帳號?</span>
-              <Link to='/sign-in' className='text-blue-500'>
-                登入
+              <span>還沒有帳號?</span>
+              <Link to='/sign-up' className='text-blue-500'>
+                前往註冊
               </Link>
             </div>
             {errorMsg && (
