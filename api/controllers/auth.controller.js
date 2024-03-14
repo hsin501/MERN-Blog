@@ -46,7 +46,7 @@ export const signin = async (req, res, next) => {
   try {
     const vaildUser = await User.findOne({ email });
     if (!vaildUser) {
-      console.log('vaildUser');
+      // console.log('vaildUser');
       return next(errorHandler(404, 'User not found 找不到用戶'));
     }
     const validPassword = await bcryptjs.compare(password, vaildUser.password);
@@ -70,10 +70,13 @@ export const signin = async (req, res, next) => {
 };
 
 export const google = async (req, res, next) => {
-  const { name, email, googlephotoUrl } = req.body;
+  console.log(req.body);
+  const { email, name, googlePhotoUrl } = req.body;
   try {
     const user = await User.findOne({ email });
+
     if (user) {
+      // console.log('找到現有用戶');
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
       const { password, ...rest } = user._doc;
       res
@@ -83,19 +86,22 @@ export const google = async (req, res, next) => {
         })
         .json(rest);
     } else {
+      // console.log('新用戶');
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);
       const hashedPassword = await bcryptjs.hash(generatedPassword, 10);
       const newUser = new User({
         username:
-          name.toLowerCase().split('').join('') +
-          Math.random.toString(9).slice(-4),
+          name.toLowerCase().split(' ').join('') +
+          Math.random().toString(9).slice(-4),
+
         email,
         password: hashedPassword,
-        profliePicture: googlephotoUrl,
+        profilePicture: googlePhotoUrl,
       });
       await newUser.save();
+      // console.log(newUser);
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
       const { password, ...rest } = newUser._doc;
       res
@@ -104,6 +110,7 @@ export const google = async (req, res, next) => {
         .json(rest);
     }
   } catch (error) {
+    // console.log(error);
     next(error);
   }
 };

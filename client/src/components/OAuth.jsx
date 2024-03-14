@@ -10,6 +10,7 @@ export default function OAuth() {
   const auth = getAuth(app);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   //估狗登入
   const handleGoogleClick = async () => {
     const provider = new GoogleAuthProvider();
@@ -22,9 +23,11 @@ export default function OAuth() {
         body: JSON.stringify({
           name: resultFormGoole.user.displayName,
           email: resultFormGoole.user.email,
-          googlephotoUrl: resultFormGoole.user.photoURL,
+          googlePhotoUrl: resultFormGoole.user.photoURL,
         }),
       });
+      // console.log(resultFormGoole);
+
       const data = await res.json();
       if (res.ok) {
         dispatch(signInSuccess(data));
