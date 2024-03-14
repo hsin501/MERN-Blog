@@ -8,6 +8,7 @@ import {
   signInFailure,
   signInSuccess,
 } from '../redux/user/userSlice';
+import OAuth from '../components/OAuth';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
@@ -68,8 +69,9 @@ export default function SignIn() {
             </span>
             Blog
           </Link>
-          <p className='text-sm mt-5'>
-            這裡是星星的部落格，你可以使用信箱及密碼或使用Google帳號登入
+          <h1 className='text-2xl mt-5 font-bold'>歡迎回來</h1>
+          <p className='text-sm bold'>
+            <br></br>請輸入信箱及密碼或使用Google進行登入
           </p>
         </div>
         {/* right */}
@@ -107,6 +109,7 @@ export default function SignIn() {
                 '登入'
               )}
             </Button>
+            <OAuth />
             <div className='flex gap-2 text-sm mt-5'>
               <span>還沒有帳號?</span>
               <Link to='/sign-up' className='text-blue-500'>
