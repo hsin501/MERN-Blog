@@ -69,6 +69,7 @@ export const signin = async (req, res, next) => {
   }
 };
 
+// google oauth 登入認證功能，如果有帳號，就直接登入，如果沒有就註冊一個
 export const google = async (req, res, next) => {
   console.log(req.body);
   const { email, name, googlePhotoUrl } = req.body;
