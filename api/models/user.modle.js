@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// 使用 Mongoose 建立使用者模型
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -22,8 +23,10 @@ const userSchema = new mongoose.Schema(
         'https://cdn.vectorstock.com/i/preview-1x/15/40/blank-profile-picture-image-holder-with-a-crown-vector-42411540.jpg',
     },
   },
-  { timestamps: true }
+  { timestamps: true } // 自動加入時間戳記
 );
 
+// 建立 User 模型
 const User = mongoose.model('User', userSchema);
+
 export default User;
