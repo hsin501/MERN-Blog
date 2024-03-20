@@ -22,14 +22,16 @@ export const updateUser = async (req, res, next) => {
     req.body.password = bcryptjs.hashSync(req.body.password, 10);
   }
   // 檢查並更新用戶名稱
-  if (req.body.username.length < 7 || req.body.username > 20) {
-    return next(errorHandler(400, '用戶名必須在7到20個字符之間'));
-  }
-  if (req.body.username.includes(' ')) {
-    return next(errorHandler(400, '用戶名不能包含空格'));
-  }
-  if (!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
-    return next(errorHandler(400, '用戶名只能包含字母和數字'));
+  if (req.body.username) {
+    if (req.body.username.length < 7 || req.body.username > 20) {
+      return next(errorHandler(400, '用戶名必須在7到20個字符之間'));
+    }
+    if (req.body.username.includes(' ')) {
+      return next(errorHandler(400, '用戶名不能包含空格'));
+    }
+    if (!req.body.username.match(/^[a-zA-Z0-9]+$/)) {
+      return next(errorHandler(400, '用戶名只能包含字母和數字'));
+    }
   }
   try {
     // 更新使用者資料並取得更新後的使用者

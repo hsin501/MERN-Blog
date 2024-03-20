@@ -11,6 +11,12 @@ import { useState, useRef, useEffect } from 'react';
 import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import {
+  updateStart,
+  updateSuccess,
+  updateFailure,
+} from '../redux/user/userSlice';
+import { useDispatch } from 'react-redux';
 
 export default function DashboardProfile() {
   const { currentUser } = useSelector((state) => state.user);
@@ -21,6 +27,11 @@ export default function DashboardProfile() {
   const [imgFileUploadProgessError, setImgFileUploadProgessError] =
     useState(null);
   // console.log(imgFileUploadProgess, imgFileUploadProgessError);
+  const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
+  const [imgFileUploading, setImgFileUploading] = useState(false);
+  const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
+  const [updateUserError, setUpdateUserError] = useState(null);
 
   // 圖片更換
   const handleImgChange = (e) => {
@@ -41,9 +52,10 @@ export default function DashboardProfile() {
 
   // 上傳圖片的函式
   const uploadImg = async () => {
+    setImgFileUploadProgessError(null); // 清除上傳進度錯誤訊息
+    setImgFileUploading(true); // 開啟上傳中的狀態
     // console.log('uploadingImg');
     // console.log(imgFile.name);
-    setImgFileUploadProgessError(null); // 清除上傳進度錯誤訊息
     const storage = getStorage(app);
     const fileName = new Date().getTime() + imgFile.name;
     const storageRef = ref(storage, fileName);
@@ -61,21 +73,67 @@ export default function DashboardProfile() {
         setImgFileUploadProgess(null); // 清除上傳進度
         setImgFile(null); // 清除選擇的圖片檔案
         setImgFileUrl(null); // 清除圖片URL
-        console.error(error); // 輸出錯誤到控制台
+        setImgFileUploading(false); // 關閉上傳中的狀態
+        console.error(error);
       },
       () => {
         // 上傳完成後取得下載URL
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImgFileUrl(downloadURL);
+          setFormData({ ...formData, profilePicture: downloadURL });
+          setImgFileUploading(false);
         });
       }
     );
   };
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+  // console.log(formData);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setUpdateUserError(null);
+    setUpdateUserSuccess(null);
+    if (Object.keys(formData).length === 0) {
+      setUpdateUserError('沒有任何修改');
+      return;
+    }
+    if (imgFileUploading) {
+      setUpdateUserError('圖片正在上傳中，請稍後再試');
+      return;
+    }
+
+    try {
+      dispatch(updateStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      console.log(res);
+      const data = await res.json();
+      if (!res.ok) {
+        dispatch(updateFailure(data.message));
+        setUpdateUserError(data.message);
+      } else {
+        dispatch(updateSuccess(data));
+        setUpdateUserSuccess('成功更新');
+      }
+    } catch (error) {
+      dispatch(updateFailure(error.message));
+      setUpdateUserError(error.message);
+    }
+  };
+
+  // console.log(formData);
   return (
     <div className='max-w-lg mx-auto p-3 w-full'>
       <h1 className='my-7 text-center font-semibold text-3xl'>個人資料</h1>
-      <form className='flex flex-col gap-4'>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input
           type='file'
           accept='image/*'
@@ -129,6 +187,7 @@ export default function DashboardProfile() {
           placeholder='username'
           icon={HiUser}
           defaultValue={currentUser.username}
+          onChange={handleChange}
         />
         {/* 電子郵件輸入框 */}
         <TextInput
@@ -137,6 +196,7 @@ export default function DashboardProfile() {
           placeholder='email'
           icon={HiMail}
           defaultValue={currentUser.email}
+          onChange={handleChange}
         />
         {/* 密碼輸入框 */}
         <TextInput
@@ -144,6 +204,7 @@ export default function DashboardProfile() {
           type='password'
           icon={HiKey}
           placeholder='password'
+          onChange={handleChange}
         />
         {/* 更新按鈕 */}
         <Button type='submit' gradientDuoTone='purpleToBlue' outline>
@@ -155,6 +216,17 @@ export default function DashboardProfile() {
         <span>刪除帳戶</span>
         <span>登出</span>
       </div>
+      {updateUserSuccess && (
+        <Alert color='success' className='mt-5 '>
+          {updateUserSuccess}
+        </Alert>
+      )}
+
+      {updateUserError && (
+        <Alert color='failure' className='mt-5'>
+          {updateUserError}
+        </Alert>
+      )}
     </div>
   );
 }
