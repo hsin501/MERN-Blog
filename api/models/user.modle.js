@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema(
       default:
         'https://cdn.vectorstock.com/i/preview-1x/15/40/blank-profile-picture-image-holder-with-a-crown-vector-42411540.jpg',
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true } // 自動加入時間戳記
 );

@@ -62,7 +62,10 @@ export const signin = async (req, res, next) => {
       return next(errorHandler(400, 'Invalid password 無效的密碼'));
     }
     // 生成JWT令牌
-    const token = jwt.sign({ id: vaildUser._id }, process.env.JWT_SECRET);
+    const token = jwt.sign(
+      { id: vaildUser._id, isAdmin },
+      process.env.JWT_SECRET
+    );
     // 隱藏使用者的密碼，然後回傳使用者資料和JWT令牌
     const { password: pass, ...rest } = vaildUser._doc;
 
@@ -89,7 +92,10 @@ export const google = async (req, res, next) => {
     // 如果找到使用者，則直接生成JWT令牌並回傳使用者資料
     if (user) {
       // console.log('找到現有用戶');
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      const token = jwt.sign(
+        { id: user._id, isAdmin: user.id },
+        process.env.JWT_SECRET
+      );
       const { password, ...rest } = user._doc;
       res
         .status(200)
@@ -116,7 +122,10 @@ export const google = async (req, res, next) => {
       });
       await newUser.save(); // 儲存新使用者
       // console.log(newUser);
-      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET); // 產生 JWT token
+      const token = jwt.sign(
+        { id: newUser._id, isAdmin: newUser.isAdmin },
+        process.env.JWT_SECRET
+      ); // 產生 JWT token
       const { password, ...rest } = newUser._doc;
       res
         .status(200)
