@@ -23,6 +23,7 @@ import {
   deleteUserStart,
   deleteUserSuccess,
   deleteUserFailure,
+  signoutSuccess,
 } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 
@@ -157,6 +158,22 @@ export default function DashboardProfile() {
     }
   };
 
+  const handleSignout = async () => {
+    try {
+      const res = await fetch('/api/user/signout', {
+        method: 'POST',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className='max-w-lg mx-auto p-3 w-full'>
       <h1 className='my-7 text-center font-semibold text-3xl'>個人資料</h1>
@@ -248,7 +265,9 @@ export default function DashboardProfile() {
         >
           刪除帳戶
         </span>
-        <span className='cursor-pointer'>登出</span>
+        <span onClick={handleSignout} className='cursor-pointer'>
+          登出
+        </span>
       </div>
       {updateUserSuccess && (
         <Alert color='success' className='mt-5 '>

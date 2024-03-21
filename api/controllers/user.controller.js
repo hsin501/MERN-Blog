@@ -69,3 +69,11 @@ export const deleteUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const signout = (req, res, next) => {
+  try {
+    res.clearCookie('token').status(200).json('已登出');
+  } catch (error) {
+    next(error);
+  }
+};
