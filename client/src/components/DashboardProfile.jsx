@@ -5,8 +5,13 @@ import {
   ref,
 } from 'firebase/storage';
 import { useSelector } from 'react-redux';
-import { Alert, Button, TextInput } from 'flowbite-react';
-import { HiMail, HiUser, HiKey } from 'react-icons/hi';
+import { Alert, Button, Modal, TextInput } from 'flowbite-react';
+import {
+  HiMail,
+  HiUser,
+  HiKey,
+  HiOutlineExclamationCircle,
+} from 'react-icons/hi';
 import { useState, useRef, useEffect } from 'react';
 import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -15,11 +20,14 @@ import {
   updateStart,
   updateSuccess,
   updateFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure,
 } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 
 export default function DashboardProfile() {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, error } = useSelector((state) => state.user);
   const [imgFile, setImgFile] = useState(null);
   const [imgFileUrl, setImgFileUrl] = useState(null);
   const filePickerRef = useRef();
@@ -32,6 +40,7 @@ export default function DashboardProfile() {
   const [imgFileUploading, setImgFileUploading] = useState(false);
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   // 圖片更換
   const handleImgChange = (e) => {
@@ -128,8 +137,26 @@ export default function DashboardProfile() {
       setUpdateUserError(error.message);
     }
   };
-
   // console.log(formData);
+
+  const handleDeleteUser = async () => {
+    setShowModal(false);
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        dispatch(deleteUserFailure(data.message));
+      } else {
+        dispatch(deleteUserSuccess(data));
+      }
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+
   return (
     <div className='max-w-lg mx-auto p-3 w-full'>
       <h1 className='my-7 text-center font-semibold text-3xl'>個人資料</h1>
@@ -213,8 +240,15 @@ export default function DashboardProfile() {
       </form>
       {/* 刪除帳戶和登出選項 */}
       <div className='text-red-500 flex justify-between mt-5'>
-        <span>刪除帳戶</span>
-        <span>登出</span>
+        <span
+          onClick={() => {
+            setShowModal(true);
+          }}
+          className='cursor-pointer'
+        >
+          刪除帳戶
+        </span>
+        <span className='cursor-pointer'>登出</span>
       </div>
       {updateUserSuccess && (
         <Alert color='success' className='mt-5 '>
@@ -227,6 +261,38 @@ export default function DashboardProfile() {
           {updateUserError}
         </Alert>
       )}
+
+      {error && (
+        <Alert color='failure' className='mt-5'>
+          {error}
+        </Alert>
+      )}
+      <Modal
+        show={showModal}
+        onClose={() => {
+          setShowModal(false);
+        }}
+        popup
+        size='md'
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className='text-center'>
+            <HiOutlineExclamationCircle className='mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200' />
+            <h3 className='mb-5 text-lg font-normal text-gray-500 dark:text-gray-400'>
+              確定要刪除此帳戶嗎?
+            </h3>
+            <div className='flex justify-center gap-4'>
+              <Button color='failure' onClick={handleDeleteUser}>
+                {'是,我確定'}
+              </Button>
+              <Button color='gray' onClick={() => setShowModal(false)}>
+                不,取消
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }
