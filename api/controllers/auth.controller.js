@@ -63,7 +63,7 @@ export const signin = async (req, res, next) => {
     }
     // 生成JWT令牌
     const token = jwt.sign(
-      { id: vaildUser._id, isAdmin },
+      { id: vaildUser._id, isAdmin: vaildUser.isAdmin },
       process.env.JWT_SECRET
     );
     // 隱藏使用者的密碼，然後回傳使用者資料和JWT令牌
@@ -93,7 +93,7 @@ export const google = async (req, res, next) => {
     if (user) {
       // console.log('找到現有用戶');
       const token = jwt.sign(
-        { id: user._id, isAdmin: user.id },
+        { id: user._id, isAdmin: user.isAdmin },
         process.env.JWT_SECRET
       );
       const { password, ...rest } = user._doc;
@@ -134,6 +134,7 @@ export const google = async (req, res, next) => {
     }
   } catch (error) {
     // console.log(error);
+
     next(error);
   }
 };
