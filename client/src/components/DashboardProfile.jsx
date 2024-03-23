@@ -26,9 +26,10 @@ import {
   signoutSuccess,
 } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export default function DashboardProfile() {
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imgFile, setImgFile] = useState(null);
   const [imgFileUrl, setImgFileUrl] = useState(null);
   const filePickerRef = useRef();
@@ -251,9 +252,25 @@ export default function DashboardProfile() {
           onChange={handleChange}
         />
         {/* 更新按鈕 */}
-        <Button type='submit' gradientDuoTone='purpleToBlue' outline>
-          更新
+        <Button
+          type='submit'
+          gradientDuoTone='purpleToBlue'
+          outline
+          disabled={loading || imgFileUploading}
+        >
+          {loading ? '更新中...' : '更新'}
         </Button>
+        {currentUser.isAdmin && (
+          <Link to={'/create-post'}>
+            <Button
+              type='button'
+              gradientDuoTone='purpleToPink'
+              className='w-full'
+            >
+              添加文章
+            </Button>
+          </Link>
+        )}
       </form>
       {/* 刪除帳戶和登出選項 */}
       <div className='text-red-500 flex justify-between mt-5'>
