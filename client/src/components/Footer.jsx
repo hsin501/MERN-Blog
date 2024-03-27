@@ -48,7 +48,7 @@ export default function FooterComponent() {
               </Footer.LinkGroup>
             </div>
             <div className='mt-2 sm:mt-0 border-l border-teal-500 pl-2 border-opacity-50 '>
-              <Footer.Title title='Connection' />
+              <Footer.Title title='Contact Us' />
               <Footer.LinkGroup col>
                 <div className='  flex items-center'>
                   <a href='#'>
