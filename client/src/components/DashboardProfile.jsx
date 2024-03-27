@@ -261,7 +261,7 @@ export default function DashboardProfile() {
           {loading ? '更新中...' : '更新'}
         </Button>
         {currentUser.isAdmin && (
-          <Link to={'create-post'}>
+          <Link to={'/create-post'}>
             <Button
               type='button'
               gradientDuoTone='purpleToPink'
