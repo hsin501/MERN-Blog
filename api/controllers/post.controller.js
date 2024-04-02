@@ -60,3 +60,15 @@ export const getposts = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deletepost = async (req, res, next) => {
+  if (!req.user.isAdmin) {
+    return next(errorHandler(403, '您不允許刪除文章'));
+  }
+  try {
+    await Post.findByIdAndDelete(req.params.postId);
+    res.status(200).json('文章已刪除');
+  } catch (error) {
+    next(error);
+  }
+};
