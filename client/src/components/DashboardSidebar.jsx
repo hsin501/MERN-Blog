@@ -1,7 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import { Sidebar } from 'flowbite-react';
-import { HiUser, HiArrowSmRight, HiDocumentText } from 'react-icons/hi';
+import {
+  HiUser,
+  HiArrowSmRight,
+  HiDocumentText,
+  HiUserGroup,
+} from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -64,7 +69,17 @@ export default function DashboardSidebar() {
               </Sidebar.Item>
             </Link>
           )}
-
+          {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=users'>
+              <Sidebar.Item
+                active={tab === 'posts'}
+                icon={HiUserGroup}
+                as='div'
+              >
+                用戶
+              </Sidebar.Item>
+            </Link>
+          )}
           <Sidebar.Item
             icon={HiArrowSmRight}
             labelColor='dark'
