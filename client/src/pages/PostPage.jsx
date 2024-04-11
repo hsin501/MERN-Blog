@@ -9,6 +9,7 @@ export default function PostPage() {
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
   // console.log(post);
+  const [readingTime, setReadingTime] = useState(0);
 
   useEffect(() => {
     // console.log(postSlug);
@@ -24,6 +25,7 @@ export default function PostPage() {
         }
         if (res.ok) {
           setPost(data.posts[0]);
+          setReadingTime(calculateReadingTime(data.posts[0].content));
           setLoading(false);
           setError(false);
         }
@@ -34,12 +36,22 @@ export default function PostPage() {
     };
     fetchPost();
   }, [postSlug]);
+
+  const calculateReadingTime = (htmlContent) => {
+    const textContent = htmlContent.replace(/<[^>]*>/g, '').trim();
+    const words = textContent.length;
+    const wordsPerMinute = 400; // 根據用戶可調整每分鐘閱讀的速度
+    const readingTime = Math.ceil(words / wordsPerMinute);
+    return readingTime;
+  };
+
   if (loading)
     return (
       <div className='flex justify-center items-center min-h-screen'>
         <Spinner aria-label='Extra large spinner example' size='lg' />
       </div>
     );
+
   return (
     <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
       <h1 className='text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl'>
@@ -62,10 +74,10 @@ export default function PostPage() {
         <span className='italic'>
           {post && new Date(post.createdAt).toLocaleDateString()}
         </span>
-        <span>閱讀時間{post && Math.ceil(post.content.length / 400)}分鐘</span>
+        <span>閱讀時間{readingTime}分鐘</span>
       </div>
       <div
-        className='p-3 max-w-2xl mx-auto w-full post-content'
+        className='p-3 max-w-2xl mx-auto w-full ql-container ql-editor post-content'
         dangerouslySetInnerHTML={{ __html: post && post.content }}
       ></div>
     </main>

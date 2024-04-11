@@ -80,6 +80,18 @@ export default function CreatePost() {
     }
   };
 
+  const toolbarOptions = [
+    //編輯選項
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    ['bold', 'italic', 'underline', 'strike', 'link'],
+    [{ color: [] }, { background: [] }],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
+    ['blockquote', 'code-block'],
+    ['image'],
+    ['clean'],
+  ];
+
   return (
     <div className='p-3 max-w-3xl mx-auto min-h-screen'>
       <h1 className='text-center text-3xl my-7 font-semibold'>新增文章</h1>
@@ -152,6 +164,7 @@ export default function CreatePost() {
           placeholder='寫點東西吧'
           className='h-72 mb-12'
           required
+          modules={{ toolbar: toolbarOptions }}
           onChange={(value) => setFormData({ ...formData, content: value })}
         />
         <Button type='submit' gradientDuoTone='purpleToPink'>

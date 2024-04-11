@@ -12,18 +12,21 @@ body {
 
 .post-content p {
   margin-bottom: 0.5rem;
+  font-size: medium;
 }
 .post-content h1 {
   margin-bottom: 1.5rem;
   font-weight: 600;
   font-family: sans-serif;
   margin: 1.5rem 0;
+  font-size: xx-large;
 }
 
 .post-content h2 {
   margin-bottom: 1.4rem;
   font-family: sans-serif;
   margin: 1.5rem 0;
+  font-size: x-large;
 }
 .post-content a {
   color: rgb(73, 149, 199);
@@ -36,4 +39,43 @@ body {
 
 .dark .post-content a {
   color: red;
+}
+
+.post-content pre {
+  background-color: #1e293b;
+  border: 1px solid rgb(61, 69, 83);
+  color: #e8e7e7;
+  white-space: pre-wrap;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.dark .post-content code {
+  background-color: #1e293b;
+  border: 1px solid rgb(61, 69, 83);
+}
+.post-content code {
+  background-color: #ececec;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.ql-editor blockquote {
+  border-left: 4px solid #eee;
+  color: #666;
+  margin: 16px 0;
+  padding: 10px 20px;
+  background-color: #f7f7f7;
+  font-style: italic;
+}
+
+.dark .ql-editor blockquote {
+  border-left: 4px solid #5b677c;
+  color: #b6b5b5;
+  margin: 16px 0;
+  padding: 10px 20px;
+  background-color: #3b475a;
+  font-style: italic;
 }
