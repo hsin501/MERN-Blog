@@ -5,6 +5,7 @@ import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import cookieParser from 'cookie-parser';
 import postRoutes from './routes/post.route.js';
+import commentRoutes from './routes/comment.route.js';
 
 dotenv.config(); // 載入環境變數
 
@@ -26,6 +27,7 @@ app.use(cookieParser()); //  使用 cookie-parser 中間件處理 cookie
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
+app.use('/api/comment', commentRoutes);
 
 app.listen(port, () => {
   console.log(` listening on port ${port}`);
