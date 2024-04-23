@@ -49,3 +49,25 @@ export const likeComment = async (req, res, next) => {
     next(error);
   }
 };
+
+export const editComment = async (req, res, next) => {
+  try {
+    const comment = await Comment.findById(req.params.commentId);
+    if (!comment) {
+      return next(errorHandler(404, '找不到此評論'));
+    }
+    if (comment.userId !== req.user.id && !req.user.isAdmin) {
+      return next(errorHandler(403, '您不能修改此評論'));
+    }
+    const editComment = await Comment.findByIdAndUpdate(
+      req.params.commentId,
+      {
+        content: req.body.content,
+      },
+      { new: true }
+    );
+    res.status(200).json(editComment);
+  } catch (error) {
+    next(error);
+  }
+};
