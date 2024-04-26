@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { FaHeart } from 'react-icons/fa';
 import { Button, Textarea } from 'flowbite-react';
 
-export default function Comment({ comment, onLike, onEdit }) {
+export default function Comment({ comment, onLike, onEdit, onDelete }) {
   const [user, setUser] = useState({});
   // console.log(user);
   const { currentUser } = useSelector((state) => state.user);
@@ -133,13 +133,22 @@ export default function Comment({ comment, onLike, onEdit }) {
               {currentUser &&
                 (currentUser._id === comment.userId || currentUser.isAdmin) && (
                   <div className=' flex justify-end w-full '>
-                    <button
-                      type='button'
-                      className='text-gray-400  hover:text-blue-500'
-                      onClick={handleEdit}
-                    >
-                      編輯
-                    </button>
+                    <>
+                      <button
+                        type='button'
+                        className='text-gray-400  hover:text-blue-500'
+                        onClick={handleEdit}
+                      >
+                        編輯
+                      </button>
+                      <button
+                        type='button'
+                        className='text-gray-400  hover:text-red-500 ml-2'
+                        onClick={() => onDelete(comment._id)}
+                      >
+                        刪除
+                      </button>
+                    </>
                   </div>
                 )}
             </div>
