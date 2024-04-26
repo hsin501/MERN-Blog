@@ -118,7 +118,7 @@ export default function CommentSection({ postId }) {
   };
 
   return (
-    <div className='max-w-2xl mx-auto w-full p-3'>
+    <div className='max-w-4xl mx-auto w-full p-3'>
       <hr className='h-0.5 my-6 bg-gray-300 border-0 dark:bg-gray-600 rounded' />
       {currentUser ? (
         <div className='flex justify-center'>
