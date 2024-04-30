@@ -6,7 +6,11 @@ export default {
     'node_modules/flowbite-react/lib/esm/**/*.js',
   ],
   theme: {
-    extend: {},
+    extend: {
+      maxWidth: {
+        custom: '90rem',
+      },
+    },
   },
   plugins: [require('flowbite/plugin'), require('tailwind-scrollbar')],
 };
