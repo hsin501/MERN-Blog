@@ -14,6 +14,7 @@ import UpdatePost from './pages/UpdatePost';
 import PostPage from './pages/PostPage';
 import ScrollToTop from './components/ScrollTop';
 import Search from './pages/Search';
+import NotFound from './pages/NotFound';
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
         </Route>
         <Route path='/projects' element={<Projects />} />
         <Route path='/post/:postSlug' element={<PostPage />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
     </BrowserRouter>
