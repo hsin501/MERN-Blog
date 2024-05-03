@@ -19,9 +19,15 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
         const data = await res.json();
         if (res.ok) {
           setUser(data);
+        } else {
+          throw new Error(data.message);
         }
       } catch (error) {
-        console.log(error.message);
+        setUser({
+          username: '使用者不存在',
+          profilePicture:
+            'https://icons.iconarchive.com/icons/fa-team/fontawesome/256/FontAwesome-User-Large-Slash-icon.png',
+        });
       }
     };
     getUser();
@@ -125,10 +131,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
                 <FaHeart className='text-base' />
               </button>
               <p className='whitespace-nowrap'>
-                {comment.numberOfLikes > 0 &&
-                  comment.numberOfLikes +
-                    ' ' +
-                    (comment.numberOfLikes === 1 && '人喜歡')}
+                {comment.numberOfLikes > 0 && comment.numberOfLikes + ' 人喜歡'}
               </p>
               {currentUser &&
                 (currentUser._id === comment.userId || currentUser.isAdmin) && (

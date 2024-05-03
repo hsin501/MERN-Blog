@@ -21,6 +21,11 @@ export default function CommentSection({ postId }) {
 
   const handleSumbit = async (e) => {
     e.preventDefault();
+    const trimmedComment = comment.trim();
+    if (trimmedComment.length === 0 || '') {
+      alert('評論不能為空');
+      return;
+    }
     if (comment.length > 200) {
       return;
     }

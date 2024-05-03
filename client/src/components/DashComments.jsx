@@ -120,7 +120,7 @@ export default function DashComments() {
                     ) : (
                       <>
                         <span>{comment.content.slice(0, 20)}</span>
-                        {comment.content.length > 100 && (
+                        {comment.content.length > 20 && (
                           <>
                             <span>...</span>
                             <br />

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Button, Spinner } from 'flowbite-react';
 import CommentSection from '../components/CommentSection';
 import PostCard from '../components/PostCard';
+import NotFound from './NotFound';
 
 export default function PostPage() {
   const { postSlug } = useParams();
@@ -69,6 +70,8 @@ export default function PostPage() {
         <Spinner aria-label='Extra large spinner example' size='lg' />
       </div>
     );
+
+  if (error) return <NotFound />;
 
   return (
     <main className='p-3 flex flex-col max-w-full mx-auto min-h-screen '>

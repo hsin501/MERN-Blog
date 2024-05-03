@@ -70,7 +70,7 @@ export default function DashBoardComp() {
   }, [currentUser]);
 
   return (
-    <div className='p-3 md:mx-auto'>
+    <div className='p-3 md:mx-auto mt-10'>
       <div className='flex-wrap flex gap-4 justify-center'>
         <div className='flex flex-col p-3 gap-4 md:w-72 w-full rounded-md shadow-md dark:bg-slate-800'>
           <div className='flex justify-between'>
@@ -121,7 +121,7 @@ export default function DashBoardComp() {
           </div>
         </div>
       </div>
-      <div className='grid md:grid-cols-3 sm:grid-cols-1 gap-4 pt-4'>
+      <div className='grid md:grid-cols-3 sm:grid-cols-1 gap-4 pt-8'>
         <div className='flex flex-col w-full  shadow-md p-2 rounded-md dark:bg-gray-800 '>
           <div className='flex justify-between p-3 text-sm font-semibold'>
             <h1 className='text-center p-2'>最近用戶</h1>
@@ -168,7 +168,9 @@ export default function DashBoardComp() {
                 <Table.Body key={comment._id} className='divide-y'>
                   <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                     <Table.Cell className='w-96'>
-                      <p className='break-all'>{comment.content}</p>
+                      <p className='break-all h-10 overflow-hidden'>
+                        {comment.content}
+                      </p>
                     </Table.Cell>
                     <Table.Cell>{comment.numberOfLikes}</Table.Cell>
                   </Table.Row>

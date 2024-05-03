@@ -58,7 +58,7 @@ export const editComment = async (req, res, next) => {
       return next(errorHandler(404, '找不到此評論'));
     }
     if (comment.userId !== req.user.id && !req.user.isAdmin) {
-      return next(errorHandler(403, '您不能修改此評論'));
+      return next(errorHandler(403, '您無權刪除此評論'));
     }
     const editComment = await Comment.findByIdAndUpdate(
       req.params.commentId,
@@ -79,7 +79,7 @@ export const deleteComment = async (req, res, next) => {
     if (!comment) {
       return next(errorHandler(404, '找不到評論'));
     }
-    if (comment.userId !== req.user.id && req.user.isAdmin) {
+    if (comment.userId !== req.user.id && !req.user.isAdmin) {
       return next(errorHandler(403, '您不能刪除此評論'));
     }
     await Comment.findByIdAndDelete(req.params.commentId);
