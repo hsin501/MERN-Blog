@@ -5,7 +5,7 @@ import { ImMail } from 'react-icons/im';
 
 export default function FooterComponent() {
   return (
-    <Footer container className='border border-t-8 border-teal-500'>
+    <Footer container className='border border-t-8 border-blue-300'>
       <div className='w-full max-w-8xl '>
         <div className='grid  sm:grid-cols-2'>
           <div className='mt-2  col-end-2 flex justify-center'>
@@ -20,7 +20,7 @@ export default function FooterComponent() {
             </Link>
           </div>
           <div className=' grid justify-between grid-cols-2 sm:grid-cols-3 mt-2'>
-            <div className='mt-2 sm:mt-0 border-l border-teal-500 pl-2 border-opacity-50 '>
+            <div className='mt-2 sm:mt-0 border-l border-blue-500 pl-2 border-opacity-50 '>
               <FooterTitle title='Qucick lick' />
               <Footer.LinkGroup col>
                 <Footer.Link href='/'>Home</Footer.Link>
@@ -28,7 +28,7 @@ export default function FooterComponent() {
                 <Footer.Link href='/projects'>Projects</Footer.Link>
               </Footer.LinkGroup>
             </div>
-            <div className='mt-2 sm:mt-0 border-l border-teal-500 pl-2 border-opacity-50 '>
+            <div className='mt-2 sm:mt-0 border-l border-blue-500 pl-2 border-opacity-50 '>
               <Footer.Title title='follow me' />
               <Footer.LinkGroup col>
                 <Footer.Link
@@ -47,7 +47,7 @@ export default function FooterComponent() {
                 </Footer.Link>
               </Footer.LinkGroup>
             </div>
-            <div className='mt-2 sm:mt-0 border-l border-teal-500 pl-2 border-opacity-50 '>
+            <div className='mt-2 sm:mt-0 border-l border-blue-500 pl-2 border-opacity-50 '>
               <Footer.Title title='Contact Us' />
               <Footer.LinkGroup col>
                 <div className='  flex items-center'>

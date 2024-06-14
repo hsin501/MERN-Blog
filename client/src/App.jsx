@@ -15,6 +15,7 @@ import PostPage from './pages/PostPage';
 import ScrollToTop from './components/ScrollTop';
 import Search from './pages/Search';
 import NotFound from './pages/NotFound';
+import './index.css';
 
 export default function App() {
   return (
