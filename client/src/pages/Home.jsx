@@ -106,7 +106,7 @@ export default function Home() {
   return (
     <div className='w-full'>
       <div className='relative h-screen w-full bg-gray-100 flex flex-col'>
-        {/* <Spline scene='https://prod.spline.design/lyKcrZIm6-zw5dSy/scene.splinecode' /> */}
+        <Spline scene='https://prod.spline.design/lyKcrZIm6-zw5dSy/scene.splinecode' />
         <div className='absolute right-0 bottom-0 p-4 md:right-12 md:bottom-28 lg:right-48 lg:bottom-40 '>
           <button
             className='px-6 py-3 bg-gray-600 bg-opacity-30 text-white font-semibold rounded-3xl shadow-md hover:bg-white hover:bg-opacity-30  hover:text-gray-500 transition duration-300'

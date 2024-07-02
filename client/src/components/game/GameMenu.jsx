@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
-import './Menu.css';
-function Menu({ onClick }) {
+import './GameMenu.css';
+
+function Menu({ startGameHandler }) {
   return (
     <div className='Menu'>
-      <button className='Button' onClick={onClick}>
+      <button className='Button' onClick={startGameHandler}>
         開始遊戲
       </button>
     </div>
