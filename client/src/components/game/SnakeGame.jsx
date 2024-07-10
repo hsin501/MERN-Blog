@@ -97,7 +97,7 @@ export default function SnakeGame({ onGameStart, onGameOver }) {
       // 生成新蘋果的位置 確保蘋果位置不會超出範圍
       let newAppleX, newAppleY;
       do {
-        newAppleX = Math.floor(Math.random() * (canvasX / scale) - 0.5);
+        newAppleX = Math.floor(Math.random() * (canvasX / scale));
         newAppleY = Math.floor(Math.random() * (canvasY / scale));
       } while (
         newSnake.some(
