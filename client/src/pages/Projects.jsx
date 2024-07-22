@@ -1,3 +1,9 @@
+import Carousel from '../components/Carousel.jsx';
+
 export default function Projects() {
-  return <div>Projects</div>;
+  return (
+    <div>
+      <Carousel />
+    </div>
+  );
 }

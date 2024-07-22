@@ -91,19 +91,19 @@ export default function PostPage() {
         alt={post && post.title}
         className='mt-10 p-3 max-h-[600px] h-auto w-auto mx-auto object-cover'
       />
-      <div className='flex justify-between p-3 border-b border-slate-300 mx-auto w-full max-w-4xl text-xs'>
+      <div className='flex justify-between p-3 border-b border-slate-300 mx-auto w-full max-w-4xl text-xs '>
         <span className='italic'>
           {post && new Date(post.createdAt).toLocaleDateString()}
         </span>
         <span>閱讀時間{readingTime}分鐘</span>
       </div>
       <div
-        className='p-3 max-w-4xl mx-auto w-full ql-container ql-editor post-content'
+        className='p-3 max-w-4xl mx-auto w-full ql-editor post-content'
         dangerouslySetInnerHTML={{ __html: post && post.content }}
       ></div>
       <div>
         <CommentSection postId={post._id} />
-        <div className='flex flex-col justify-center items-center mb-6    '>
+        <div className='flex flex-col justify-center items-center mb-6 '>
           <h1 className='text-xl mt-5 font-bold'>最新文章</h1>
           <div className='flex flex-wrap gap-5 mt-5 justify-center'>
             {newestPosts &&
