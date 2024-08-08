@@ -1,12 +1,30 @@
 import gsap from 'gsap';
 import { Draggable } from 'gsap/Draggable';
 import { useEffect, useState, useRef, useMemo } from 'react';
+import Loading from './loading';
 import bg from '/project_bg.png';
 import '../../src/index.css';
-
 gsap.registerPlugin(Draggable);
 
 export default function Carousel() {
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading && carouselRef.current) {
+      gsap.fromTo(
+        carouselRef.current,
+        { autoAlpha: 0, scale: 0.9 },
+        { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'power2.out' }
+      );
+    }
+  }, [isLoading]);
+
   const items = useMemo(
     () => [
       {
@@ -19,7 +37,7 @@ export default function Carousel() {
       },
       {
         id: 2,
-        image: 'https://via.placeholder.com/500x250',
+        image: 'https://via.placeholder.com/600x400',
         text: '圖片 2',
         projectname: 'bbb',
         projectintro:
@@ -28,7 +46,7 @@ export default function Carousel() {
       },
       {
         id: 3,
-        image: 'https://via.placeholder.com/500x250',
+        image: 'https://via.placeholder.com/600x400',
         text: '圖片 3',
         projectname: 'ccc',
         projectintro: 'cccccccccccccccccccccc',
@@ -36,7 +54,7 @@ export default function Carousel() {
       },
       {
         id: 4,
-        image: 'https://via.placeholder.com/500x250',
+        image: 'https://via.placeholder.com/600x400',
         text: '圖片 4',
         projectname: 'ddd',
         projectintro: 'dddddddddddddddddddddd',
@@ -44,7 +62,7 @@ export default function Carousel() {
       },
       {
         id: 5,
-        image: 'https://via.placeholder.com/500x250',
+        image: 'https://via.placeholder.com/600x400',
         text: '圖片 5',
         projectname: 'eee',
         projectintro: 'eeeeeeeeeeeeeeeeeeeee',
@@ -52,7 +70,7 @@ export default function Carousel() {
       },
       {
         id: 6,
-        image: 'https://via.placeholder.com/500x250',
+        image: 'https://via.placeholder.com/600x400',
         text: '圖片 6',
         projectname: 'fff',
         projectintro: 'fffffffffffffffffffffff',
@@ -75,6 +93,8 @@ export default function Carousel() {
   const rotationAnimation = useRef(null); //引用旋轉動畫
 
   useEffect(() => {
+    if (!carouselRef.current || isLoading) return;
+
     const quantity = extendedItems.length; // 獲取數量
     const carouselItems = carouselRef.current.children; // 獲取所有輪播元素
     const radius = 1000; // 設定旋轉的半徑
@@ -101,15 +121,7 @@ export default function Carousel() {
         transformOrigin: '50% 50% ' + -radius + 'px',
       }
     );
-    //拖移Draggable
-    // Draggable.create(carouselRef.current, {
-    //   type: 'x',
-    //   inertia: true,
-    //   allowNativeTouchScrolling: true,
-    //   onDrag: console.log('move'),
-    //   onDragEnd: console.log('leave'),
-    // });
-  }, [extendedItems]);
+  }, [extendedItems, isLoading]);
 
   //緩速
   const slowDownRotation = () => {
@@ -150,43 +162,49 @@ export default function Carousel() {
   };
 
   return (
-    <div className='w-full h-full object-cover relative mb-10 perspective-1000 overflow-hidden bg-gray-300'>
+    <div className='w-full h-full object-cover relative  perspective-1000 overflow-hidden bg-gray-300'>
       <img src={bg} alt='Background' />
-      <div
-        className='absolute flex justify-center items-center preserve-3d bottom-52 left-1/2 
-      '
-        ref={carouselRef}
-        style={{
-          transform: 'translateZ(1100px)',
-          backfaceVisibility: 'visible',
-        }}
-      >
-        {extendedItems.map((item, index) => (
+      {isLoading ? (
+        <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-110'>
+          <Loading />
+        </div>
+      ) : (
+        <>
           <div
-            className='bg-gray-100 dark:bg-gray-500 absolute carousel-item w-96 h-96 cursor-pointer hover:shadow-xl rounded-lg border border-gray-200 dark:border-gray-600'
-            key={index}
+            className='absolute flex justify-center items-center preserve-3d bottom-[28rem] left-1/2 transform translate-x-[-50%] cursor-grab active:cursor-grabbing'
+            ref={carouselRef}
             style={{
-              transform: 'rotateY(180deg) scaleX(-1)',
+              transform: 'translateZ(1200px)',
+              backfaceVisibility: 'visible',
             }}
-            onMouseEnter={() => handleMouseEnter(index)}
-            onMouseLeave={() => handleMouseLeave(index)}
           >
-            <div
-              className='w-full py-2 px-2 h-full '
-              onClick={() => clickProjectHandler(item.url)}
-            >
-              <img src={item.image} alt='' />
-              <p className='py-2 px-2 pt-4 text-center text-3xl'>
-                {item.projectname}
-              </p>
-              <p className='pt-2 px-2 text-center text-xl whitespace-normal break-words overflow-hidden'>
-                {item.projectintro}
-              </p>
-              <p>{item.id}</p>
-            </div>
+            {extendedItems.map((item, index) => (
+              <div
+                className='bg-gray-100 dark:bg-gray-500 absolute carousel-item w-[26rem] h-[32rem] cursor-pointer hover:shadow-xl rounded-lg border border-gray-300 dark:border-gray-600'
+                key={index}
+                style={{
+                  transform: 'rotateY(180deg) scaleX(-1)',
+                }}
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={() => handleMouseLeave(index)}
+              >
+                <div
+                  className='w-full py-2 px-2 h-full '
+                  onClick={() => clickProjectHandler(item.url)}
+                >
+                  <img src={item.image} alt='' loading='lazy' />
+                  <p className='py-2 px-2 pt-4 text-center text-3xl'>
+                    {item.projectname}
+                  </p>
+                  <p className='pt-2 px-2 text-center text-xl whitespace-normal break-words overflow-hidden'>
+                    {item.projectintro}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
     </div>
   );
 }
