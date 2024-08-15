@@ -65,44 +65,6 @@ export default function Home() {
     );
   }, []);
 
-  // useEffect(() => {
-  //   const el = textRef.current;
-  //   gsap.fromTo(
-  //     el,
-  //     { x: -1500 },
-  //     {
-  //       x: 0,
-  //       duration: 10,
-  //       repeat: -1,
-  //       yoyo: true,
-  //       ease: 'linear',
-  //     }
-  //   );
-  // }, []);
-
-  // useEffect(() => {
-  //   const el = textRef1.current;
-  //   gsap.fromTo(
-  //     el,
-  //     { x: -300 },
-  //     {
-  //       x: 0,
-  //       duration: 4,
-  //       repeat: -1,
-  //       yoyo: true,
-  //       ease: 'linear',
-  //       scrollTrigger: {
-  //         trigger: el,
-  //         start: 'bottom center',
-  //         end: 'top 5%',
-
-  //         toggleActions: 'play pause resume pause',
-  //         markers: true,
-  //       },
-  //     }
-  //   );
-  // });
-
   return (
     <div className='w-full'>
       <div className='relative h-screen w-full bg-gray-100 flex flex-col'>
