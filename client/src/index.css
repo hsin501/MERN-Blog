@@ -115,11 +115,18 @@ body {
 
 /* list自訂 */
 .custom-list {
-  list-style-type: none; /* 先移除預設的符號 */
+  list-style-type: none; /* 移除預設的符號 */
+  padding-left: 0; /* 移除內邊距 */
+}
+
+.custom-list li {
+  display: flex;
+  align-items: flex-start; /* 垂直對齊符號與文字 */
 }
 
 .custom-list li::before {
-  content: '◍'; /* 你想要的符號 */
-  color: inherit; /* 可以繼承文字顏色 */
-  padding-right: 8px; /* 與文字之間的間距 */
+  content: '◍'; /* 使用你想要的符號 */
+  padding-right: 8px; /* 符號與文字間距 */
+  margin-top: 2px; /* 調整符號位置以對齊文字 */
+  flex-shrink: 0; /* 確保符號不會因為內容寬度縮小 */
 }

@@ -4,9 +4,13 @@ import PostCard from '../components/PostCard';
 import Spline from '@splinetool/react-spline';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Loading from '../components/loading';
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const [loadingComplete, setLoadingComplete] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [shouldLoadSpline, setShouldLoadSpline] = useState(true);
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -31,13 +35,12 @@ export default function Home() {
 
     gsap.fromTo(
       textRef1.current,
-      { x: 100 },
+      { xPercent: 0 },
       {
-        x: 500,
-        duration: 2,
+        xPercent: -100,
+        duration: 10,
         repeat: -1,
-        yoyo: true,
-        ease: 'none',
+        ease: 'linear',
         scrollTrigger: {
           trigger: textRef1.current,
           start: 'bottom center',
@@ -48,13 +51,12 @@ export default function Home() {
     );
     gsap.fromTo(
       textRef2.current,
-      { x: 100 },
+      { xPercent: -34 },
       {
-        x: 700,
-        duration: 4,
+        xPercent: 100,
+        duration: 10,
         repeat: -1,
-        yoyo: true,
-        ease: 'none',
+        ease: 'linear',
         scrollTrigger: {
           trigger: textRef1.current,
           start: 'bottom center',
@@ -65,10 +67,44 @@ export default function Home() {
     );
   }, []);
 
+  // 監聽 Spline 區域的滾動進入事件
+  useEffect(() => {
+    ScrollTrigger.create({
+      trigger: nextScrollRef.current,
+      start: 'top top', // 當nextScrollRef進入可視區時觸發
+      onEnter: () => setShouldLoadSpline(false),
+      onLeaveBack: () => setShouldLoadSpline(true), // 當滾動回去時重置
+    });
+  }, []);
+
+  //等待加載
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoadingComplete(true);
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleSplineLoad = () => {
+    setIsLoading(false);
+    setLoadingComplete(true);
+  };
+
   return (
     <div className='w-full'>
       <div className='relative h-screen w-full bg-gray-100 flex flex-col'>
-        <Spline scene='https://prod.spline.design/lyKcrZIm6-zw5dSy/scene.splinecode' />
+        {!loadingComplete && (
+          <div className='absolute inset-0 flex items-center justify-center'>
+            <Loading />
+          </div>
+        )}
+        {loadingComplete && shouldLoadSpline && (
+          <Spline
+            scene='https://prod.spline.design/lyKcrZIm6-zw5dSy/scene.splinecode'
+            onLoad={handleSplineLoad}
+          />
+        )}
         <div className='absolute right-0 bottom-0 p-4 md:right-12 md:bottom-28 lg:right-48 lg:bottom-40 '>
           <button
             className='px-6 py-3 bg-gray-600 bg-opacity-30 text-white font-semibold rounded-3xl shadow-md hover:bg-white hover:bg-opacity-30  hover:text-gray-500 transition duration-300'
@@ -95,10 +131,15 @@ export default function Home() {
       </div>
       <div className='p-3 bg-amber-100 dark:bg-slate-700 h-48 overflow-hidden'>
         <h1 ref={textRef1} className='text-8xl font-bold whitespace-nowrap'>
-          求職中 ...
+          &nbsp;&nbsp;求職中 ...&nbsp;&nbsp; 求職中 ... &nbsp;&nbsp;求職中 ...
+          &nbsp;&nbsp;求職中 ... &nbsp;&nbsp;求職中 ... &nbsp;&nbsp;求職中 ...
+          &nbsp;&nbsp;求職中 ... &nbsp;&nbsp;求職中 ...
         </h1>
-        <p ref={textRef2} className='text-6xl font-bold whitespace-nowrap mt-3'>
-          歡迎聯繫
+        <p
+          ref={textRef2}
+          className='text-6xl font-bold whitespace-nowrap mt-3 text-red-300'
+        >
+          歡迎聯繫&nbsp;⎝(๑•̀ω•́๑)⎠
         </p>
       </div>
       <div className='max-w-custom mx-auto p-3 flex flex-col gap-8 py-7 '>
