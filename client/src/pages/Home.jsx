@@ -9,6 +9,7 @@ import Loading from '../components/loading';
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [loadingComplete, setLoadingComplete] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState(true);
   const [shouldLoadSpline, setShouldLoadSpline] = useState(true);
 
@@ -119,7 +120,7 @@ export default function Home() {
         ref={nextScrollRef}
       >
         <h1 className='text-3xl font-bold'>歡迎來到我的程式世界</h1>
-        <p className='text-gray-500 text-xs sm:text-sm'>
+        <p className='text-gray-500 text-xs sm:text-sm break-normal break-words'>
           這裡就像個魔法小屋，把學程式的點點滴滴都記錄下來。從網頁的基本架構開始，到讓網頁亮晶晶的色彩，再到讓網頁動起來的小技巧，我們一起慢慢學，邊做邊分享。用程式碼將我們的想像變成現實，每一天都能在這裡發現新魔法！和我一起從麻瓜變成魔法高手吧！
         </p>
         <Link
@@ -130,7 +131,10 @@ export default function Home() {
         </Link>
       </div>
       <div className='p-3 bg-amber-100 dark:bg-slate-700 h-48 overflow-hidden'>
-        <h1 ref={textRef1} className='text-8xl font-bold whitespace-nowrap'>
+        <h1
+          ref={textRef1}
+          className='text-8xl font-bold whitespace-nowrap lg:text-xl'
+        >
           &nbsp;&nbsp;求職中 ...&nbsp;&nbsp; 求職中 ... &nbsp;&nbsp;求職中 ...
           &nbsp;&nbsp;求職中 ... &nbsp;&nbsp;求職中 ... &nbsp;&nbsp;求職中 ...
           &nbsp;&nbsp;求職中 ... &nbsp;&nbsp;求職中 ...
@@ -147,7 +151,7 @@ export default function Home() {
           <div className='flex flex-col gap-6 '>
             <h2 className='text-2xl font-semibold text-center '>最新文章</h2>
             <div className='flex flex-wrap gap-4 justify-center'>
-              {posts.map((post) => (
+              {posts.slice(0, 3).map((post) => (
                 <PostCard
                   key={post._id}
                   post={post}
