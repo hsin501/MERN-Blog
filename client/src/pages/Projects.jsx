@@ -1,9 +1,9 @@
-import Carousel from '../components/Carousel.jsx';
-
+import ImageSlider from '../components/ImageSlider';
 export default function Projects() {
   return (
-    <div>
-      <Carousel />
+    <div className=''>
+      {/* <Carousel /> */}
+      {<ImageSlider />}
     </div>
   );
 }

@@ -54,7 +54,7 @@ export default function Search() {
     fetchPosts();
   }, [location.search]);
 
-  console.log(sidebarData);
+  // console.log(sidebarData);
 
   const handleChange = (e) => {
     if (e.target.id === 'searchTerm') {
@@ -81,6 +81,7 @@ export default function Search() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const urlParams = new URLSearchParams(location.search);
     urlParams.set('searchTerm', sidebarData.searchTerm);
     urlParams.set('sort', sidebarData.sort);
@@ -159,9 +160,9 @@ export default function Search() {
       </div>
       <div className='w-full'>
         <h1 className='text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5'>
-          搜尋結果
+          {sidebarData.searchTerm ? '搜尋結果' : '所有文章'}
         </h1>
-        <div className='p-7 flex flex-wrap gap-4'>
+        <div className='p-7 flex flex-wrap items-center justify-center gap-4'>
           {!loading && posts.length === 0 && (
             <p className='text-xl text-gray-500'>沒有找到文章.</p>
           )}
@@ -176,7 +177,7 @@ export default function Search() {
             >
               觀看更多
             </button>
-          )}
+          )}{' '}
         </div>
       </div>
     </div>
