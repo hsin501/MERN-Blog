@@ -1,41 +1,60 @@
 import './imageSlider.css';
 import { useState, useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function ImageSlider() {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const sliderContainerRef = useRef(null);
+  const { theme } = useSelector((state) => state.theme); // 提取主題狀態
+
   const slides = [
     {
-      bgColor: '#2214',
       number: '01',
-      title: 'Pink Cherrish',
-      desc: 'to evolve into care',
+      title: 'Blog',
+      desc: '部落格,React',
       image:
-        'https://images.unsplash.com/photo-1528756514091-dee5ecaa3278?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Zmxvd2Vyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1296&q=60',
+        'https://www.shutterstock.com/image-vector/simple-racing-start-number-01-260nw-2135058571.jpg',
     },
     {
-      bgColor: '#fff',
       number: '02',
-      title: 'Yellow Luck',
+      title: '肥宅歡樂送',
+      desc: '點餐系統,使用技術:',
+      image:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3vGA49rjOHZoPInbjWkbxC119A24JHwsTGA&s',
+    },
+    {
+      number: '03',
+      title: 'Travel List',
       desc: 'Shinning the clouds',
       image:
         'https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8Zmxvd2Vyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1296&q=60',
     },
     {
-      bgColor: '#fff',
-      number: '03',
-      title: 'Redness Lust',
+      number: '04',
+      title: 'POPCORN',
       desc: 'in the wilderness',
       image:
         'https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8Zmxvd2Vyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1296&q=60',
     },
     {
-      bgColor: '#fff',
-      number: '04',
-      title: 'Lavanda Love',
+      number: '05',
+      title: 'Give Me Money',
       desc: 'in the sunset',
       image:
         'https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80',
+    },
+    {
+      number: '06',
+      title: '書贏由你來決定',
+      desc: 'in the sunset',
+      image:
+        'https://www.shutterstock.com/image-illustration/06-classic-vintage-sport-jersey-260nw-1385962760.jpg',
+    },
+    {
+      number: '07',
+      title: 'Pizza Menu',
+      desc: 'in the sunset',
+      image: 'https://d6ce0no7ktiq.cloudfront.net/images/stickers/607.png',
     },
   ];
 
@@ -47,6 +66,7 @@ export default function ImageSlider() {
         prevIndex === 0 ? slides.length - 1 : prevIndex - 1
       );
     }
+    console.log();
   };
 
   useEffect(() => {
@@ -58,22 +78,32 @@ export default function ImageSlider() {
       activeSlideIndex * sliderHeight
     }px)`;
   }, [activeSlideIndex]);
+
   return (
-    <div className='slider-container' ref={sliderContainerRef}>
+    <div
+      className='slider-container relative overflow-hidden max-w-full h-screen box-border'
+      ref={sliderContainerRef}
+    >
       <div
-        className='left-slide'
+        className='left-slide h-full w-3/5 absolute top-0 left-0 transition-transform duration-500 ease-in-out '
         style={{ top: `-${(slides.length - 1) * 100}vh` }}
       >
         {slides.map((slide, index) => (
-          <div key={index} style={{ backgroundColor: slide.bgColor }}>
+          <div
+            key={index}
+            style={{
+              backgroundColor: theme === 'dark' ? '#303c4d' : '#eaeaea',
+            }}
+          >
             <div className='numb'>{slide.number}</div>
             <h1 className='f'>{slide.title}</h1>
             <p>{slide.desc}</p>
           </div>
         ))}
       </div>
+
       <div className='right-slide'>
-        {slides.map((slide, index) => (
+        {[...slides].reverse().map((slide, index) => (
           <div
             key={index}
             style={{
