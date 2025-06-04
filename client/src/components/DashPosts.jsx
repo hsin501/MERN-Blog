@@ -73,10 +73,11 @@ export default function DashPosts() {
       const data = await res.json();
       if (res.ok) {
         console.log(data.message);
-      } else {
         setUserPosts((prev) =>
           prev.filter((post) => post._id !== postIdToDelete)
         );
+      } else {
+        console.error(data.message);
       }
     } catch (error) {
       console.log(error);

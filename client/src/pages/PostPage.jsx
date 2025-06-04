@@ -22,6 +22,7 @@ export default function PostPage() {
         setLoading(true);
         const res = await fetch(`/api/post/getposts?slug=${postSlug}`);
         const data = await res.json();
+
         if (!res.ok) {
           setError(true);
           setLoading(false);
@@ -40,7 +41,6 @@ export default function PostPage() {
     };
     fetchPost();
   }, [postSlug]);
-
   useEffect(() => {
     try {
       const fetchNewestPosts = async () => {
@@ -98,7 +98,7 @@ export default function PostPage() {
         <span>閱讀時間{readingTime}分鐘</span>
       </div>
       <div
-        className='p-3 max-w-4xl mx-auto w-full ql-editor post-content'
+        className='p-3 max-w-4xl mx-auto w-full  post-content'
         dangerouslySetInnerHTML={{ __html: post && post.content }}
       ></div>
       <div>

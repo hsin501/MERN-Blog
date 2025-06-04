@@ -1,13 +1,22 @@
 import { getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { Alert, Button, FileInput, Select, TextInput } from 'flowbite-react';
 import { useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import ReactQuill, { Quill } from 'react-quill-new';
 import { getStorage, ref } from 'firebase/storage';
 import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from 'react-router-dom';
+import QuillTableBetter from 'quill-table-better';
+import 'react-quill-new/dist/quill.snow.css';
+import 'quill-table-better/dist/quill-table-better.css';
+
+Quill.register(
+  {
+    'modules/table-better': QuillTableBetter,
+  },
+  true
+);
 
 export default function CreatePost() {
   const [file, setFile] = useState(null);
@@ -58,6 +67,7 @@ export default function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('[CreatePost] Submitting formData.content:', formData.content); // <--- 关键日志
     try {
       const res = await fetch('/api/post/create', {
         method: 'POST',
@@ -80,17 +90,48 @@ export default function CreatePost() {
     }
   };
 
-  const toolbarOptions = [
-    //編輯選項
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    ['bold', 'italic', 'underline', 'strike', 'link'],
-    [{ color: [] }, { background: [] }],
-    [{ list: 'ordered' }, { list: 'bullet' }],
-    [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
-    ['blockquote', 'code-block'],
-    ['image'],
-    ['clean'],
-  ];
+  const quillModules = {
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ['bold', 'italic', 'underline', 'strike', 'link'],
+        [{ color: [] }, { background: [] }],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
+        ['blockquote', 'code-block'],
+        ['image'],
+        ['clean'],
+        ['table-better'],
+      ],
+    },
+    table: false,
+    'table-better': {
+      language: 'en_US',
+      menus: [
+        'column',
+        'row',
+        'merge',
+        'table',
+        'cell',
+        'wrap',
+        'copy',
+        'delete',
+      ],
+      toolbarTable: true,
+      operationMenu: {
+        items: {
+          unmergeCells: { text: 'Unmerge cells' },
+        },
+        color: {
+          colors: ['red', 'green', 'yellow', 'blue', 'white'],
+          text: 'Background Colors:',
+        },
+      },
+    },
+    keyboard: {
+      bindings: QuillTableBetter.keyboardBindings,
+    },
+  };
 
   return (
     <div className='p-3 max-w-3xl mx-auto min-h-screen'>
@@ -164,7 +205,7 @@ export default function CreatePost() {
           placeholder='寫點東西吧'
           className='h-72 mb-12'
           required
-          modules={{ toolbar: toolbarOptions }}
+          modules={quillModules}
           onChange={(value) => setFormData({ ...formData, content: value })}
         />
         <Button type='submit' gradientDuoTone='purpleToPink'>

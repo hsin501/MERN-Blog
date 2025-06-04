@@ -1,31 +1,47 @@
 import { getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { Alert, Button, FileInput, Select, TextInput } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import { getStorage, ref } from 'firebase/storage';
 import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import ReactQuill, { Quill } from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
+import QuillTableBetter from 'quill-table-better';
+import 'quill-table-better/dist/quill-table-better.css';
+Quill.register(
+  {
+    'modules/table-better': QuillTableBetter,
+  },
+  true
+);
 
 export default function UpdatePost() {
   const [file, setFile] = useState(null);
   const [imgUploadProgress, setImgUploadProgress] = useState(null);
   const [imgUploadProgressError, setImgUploadProgressError] = useState(null);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    category: 'uncategorized',
+    image: '',
+    _id: null,
+  });
   // console.log(formData);
   const [publishError, setPublishError] = useState(null);
   const navigate = useNavigate();
   const { postId } = useParams();
   const { currentUser } = useSelector((state) => state.user);
+
   useEffect(() => {
     try {
       const fetchPost = async () => {
         const encodedPostId = encodeURIComponent(postId);
         const res = await fetch(`/api/post/getposts?postId=${encodedPostId}`);
         const data = await res.json();
+
         if (!res.ok) {
           console.log(data.message);
           setPublishError(data.message);
@@ -111,17 +127,49 @@ export default function UpdatePost() {
     }
   };
 
-  const toolbarOptions = [
-    //編輯選項
-    [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    ['bold', 'italic', 'underline', 'strike', 'link'],
-    [{ color: [] }, { background: [] }],
-    [{ list: 'ordered' }, { list: 'bullet' }],
-    [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
-    ['blockquote', 'code-block'],
-    ['image'],
-    ['clean'],
-  ];
+  const quillModules = {
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ['bold', 'italic', 'underline', 'strike', 'link'],
+        [{ color: [] }, { background: [] }],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
+        ['blockquote', 'code-block'],
+        ['image'],
+        ['clean'],
+        ['table-better'],
+      ],
+    },
+    table: false,
+    'table-better': {
+      language: 'en_US',
+      menus: [
+        'column',
+        'row',
+        'merge',
+        'table',
+        'cell',
+        'wrap',
+        'copy',
+        'delete',
+      ],
+      toolbarTable: true,
+      operationMenu: {
+        items: {
+          unmergeCells: { text: 'Unmerge cells' },
+        },
+        color: {
+          colors: ['red', 'green', 'yellow', 'blue', 'white'],
+          text: 'Background Colors:',
+        },
+      },
+    },
+    keyboard: {
+      bindings: QuillTableBetter.keyboardBindings,
+    },
+  };
+
   return (
     <div className='p-3 max-w-3xl mx-auto min-h-screen'>
       <h1 className='text-center text-3xl my-7 font-semibold'>編輯文章</h1>
@@ -142,7 +190,7 @@ export default function UpdatePost() {
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, category: e.target.value }))
             }
-            value={formData.category}
+            value={formData.category || 'uncategorized'}
           >
             <option value='uncategorized'>選擇分類</option>
             <option value='javascript'>Javascript</option>
@@ -197,7 +245,7 @@ export default function UpdatePost() {
           placeholder='寫點東西吧'
           className='h-72 mb-12'
           required
-          modules={{ toolbar: toolbarOptions }}
+          modules={quillModules}
           onChange={(value) =>
             setFormData((prev) => ({ ...prev, content: value }))
           }
