@@ -33,7 +33,11 @@ export default function UpdatePost() {
         }
         if (res.ok) {
           setPublishError(null);
-          setFormData(data.posts[0]);
+
+          setFormData({
+            ...data.posts[0],
+            _id: data.posts[0]._id || data.posts[0].id || postId,
+          });
         }
       };
       fetchPost();
@@ -69,7 +73,7 @@ export default function UpdatePost() {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setImgUploadProgress(null);
             setImgUploadProgressError(null);
-            setFormData({ ...formData, image: downloadURL });
+            setFormData((prev) => ({ ...prev, image: downloadURL }));
           });
         }
       );
@@ -130,13 +134,13 @@ export default function UpdatePost() {
             id='title'
             className='flex-1'
             onChange={(e) =>
-              setFormData({ ...formData, title: e.target.value })
+              setFormData((prev) => ({ ...prev, title: e.target.value }))
             }
             value={formData.title}
           />
           <Select
             onChange={(e) =>
-              setFormData({ ...formData, category: e.target.value })
+              setFormData((prev) => ({ ...prev, category: e.target.value }))
             }
             value={formData.category}
           >
@@ -194,7 +198,9 @@ export default function UpdatePost() {
           className='h-72 mb-12'
           required
           modules={{ toolbar: toolbarOptions }}
-          onChange={(value) => setFormData({ ...formData, content: value })}
+          onChange={(value) =>
+            setFormData((prev) => ({ ...prev, content: value }))
+          }
         />
         <Button type='submit' gradientDuoTone='purpleToPink'>
           更新文章

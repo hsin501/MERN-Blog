@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import AppleLogo from '../../../public/apple_cartoon.png';
-import './SnakeGame.css';
+
 import useInterval from './hooks/useInterval.jsx';
 
 const canvasX = 800;

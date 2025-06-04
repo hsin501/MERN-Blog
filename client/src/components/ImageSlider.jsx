@@ -1,62 +1,81 @@
 import './imageSlider.css';
 import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+// import { testingimage } from '../../public/projectimage/travellist.jpg';
 
+const slides = [
+  {
+    number: '01',
+    title: 'Blog',
+    desc: '部落格,使用技術:',
+    image:
+      'https://www.shutterstock.com/image-vector/simple-racing-start-number-01-260nw-2135058571.jpg',
+  },
+  {
+    number: '02',
+    title: '肥宅歡樂送',
+    desc: '點餐系統,使用技術:',
+    image: '/projectimage/ordering2.png',
+    url: 'https://hsin501.github.io/Buger_ordering/',
+  },
+  {
+    number: '03',
+    title: 'Travel List',
+    desc: '旅行打包清單 使用技術:',
+    image: '/projectimage/travellist.png',
+    url: 'https://hsin501.github.io/Travel_list/',
+  },
+  {
+    number: '04',
+    title: 'POPCORN',
+    desc: '電影評分網站 使用技術:',
+    image:
+      'https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8Zmxvd2Vyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1296&q=60',
+    url: 'https://hsin501.github.io/Travel_list/',
+  },
+  {
+    number: '05',
+    title: 'Give Me Money',
+    desc: '算帳系統 使用技術:',
+    image:
+      'https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80',
+    url: 'https://hsin501.github.io/Travel_list/',
+  },
+  {
+    number: '06',
+    title: '書贏由你來決定',
+    desc: '商城網站 使用技術:JAVA SPRINGBOOT MSQL HTML CSS JAVASCRIPT JSP',
+    image:
+      'https://www.shutterstock.com/image-illustration/06-classic-vintage-sport-jersey-260nw-1385962760.jpg',
+    url: 'https://hsin501.github.io/Travel_list/',
+  },
+  {
+    number: '07',
+    title: 'Pizza Menu',
+    desc: '菜單網站 使用技術:',
+    image: 'https://d6ce0no7ktiq.cloudfront.net/images/stickers/607.png',
+    url: 'https://hsin501.github.io/Travel_list/',
+  },
+  {
+    number: '08',
+    title: '蟲幻之地',
+    desc: '品牌識別設計專案 標誌設計、名片設計與官方網站設計。 使用技術:',
+    image: '',
+    url: 'https://hsin501.github.io/Travel_list/',
+  },
+  {
+    number: '09',
+    title: '',
+    desc: '品牌識別設計專案 標誌設計、名片設計與官方網站設計。 使用技術:',
+    image: '',
+    url: 'https://hsin501.github.io/Travel_list/',
+  },
+];
 export default function ImageSlider() {
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(slides.length - 1);
+
   const sliderContainerRef = useRef(null);
   const { theme } = useSelector((state) => state.theme); // 提取主題狀態
-
-  const slides = [
-    {
-      number: '01',
-      title: 'Blog',
-      desc: '部落格,React',
-      image:
-        'https://www.shutterstock.com/image-vector/simple-racing-start-number-01-260nw-2135058571.jpg',
-    },
-    {
-      number: '02',
-      title: '肥宅歡樂送',
-      desc: '點餐系統,使用技術:',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3vGA49rjOHZoPInbjWkbxC119A24JHwsTGA&s',
-    },
-    {
-      number: '03',
-      title: 'Travel List',
-      desc: 'Shinning the clouds',
-      image:
-        'https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8Zmxvd2Vyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1296&q=60',
-    },
-    {
-      number: '04',
-      title: 'POPCORN',
-      desc: 'in the wilderness',
-      image:
-        'https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8Zmxvd2Vyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1296&q=60',
-    },
-    {
-      number: '05',
-      title: 'Give Me Money',
-      desc: 'in the sunset',
-      image:
-        'https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80',
-    },
-    {
-      number: '06',
-      title: '書贏由你來決定',
-      desc: 'in the sunset',
-      image:
-        'https://www.shutterstock.com/image-illustration/06-classic-vintage-sport-jersey-260nw-1385962760.jpg',
-    },
-    {
-      number: '07',
-      title: 'Pizza Menu',
-      desc: 'in the sunset',
-      image: 'https://d6ce0no7ktiq.cloudfront.net/images/stickers/607.png',
-    },
-  ];
 
   const handleChangeSlide = (direction) => {
     if (direction === 'up') {
@@ -103,18 +122,24 @@ export default function ImageSlider() {
       </div>
 
       <div className='right-slide'>
-        {[...slides].reverse().map((slide, index) => (
-          <div
-            key={index}
-            style={{
-              backgroundImage: `url(${slide.image})`,
-              backgroundSize: 'cover',
-            }}
-          ></div>
-        ))}
+        {slides
+          .slice()
+          .reverse()
+          .map((slide, index) => (
+            <div
+              key={index}
+              style={{
+                backgroundImage: `url(${slide.image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                cursor: 'pointer',
+              }}
+              onClick={() => slide.url && window.open(slide.url, '_blank')}
+            ></div>
+          ))}
       </div>
       <div className='slider-navigation'>
-        {[...slides].reverse().map((_, index) => (
+        {slides.map((_, index) => (
           <div
             key={index}
             className={`nav-dot ${

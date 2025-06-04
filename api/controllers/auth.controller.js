@@ -21,7 +21,7 @@ export const signup = async (req, res, next) => {
     next(errorHandler(400, 'All fields are required 請填寫所有空格'));
   }
 
-  //hashpwd 將密碼加密
+  //hashpwd 密碼加密
   const hashedPassword = await bcryptjs.hash(password, 10);
 
   // 創建新使用者
