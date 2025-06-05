@@ -4,6 +4,8 @@ import { Button, Spinner } from 'flowbite-react';
 import CommentSection from '../components/CommentSection';
 import PostCard from '../components/PostCard';
 import NotFound from './NotFound';
+import 'react-quill-new/dist/quill.snow.css';
+import 'quill-table-better/dist/quill-table-better.css';
 
 export default function PostPage() {
   const { postSlug } = useParams();
@@ -74,7 +76,7 @@ export default function PostPage() {
   if (error) return <NotFound />;
 
   return (
-    <main className='p-3 flex flex-col max-w-full mx-auto min-h-screen '>
+    <main className='p-3 flex flex-col max-w-full mx-auto min-h-screen'>
       <h1 className='text-3xl mt-10 p-3 text-center font-serif max-w-xl mx-auto lg:text-4xl'>
         {post && post.title}
       </h1>
@@ -98,7 +100,7 @@ export default function PostPage() {
         <span>閱讀時間{readingTime}分鐘</span>
       </div>
       <div
-        className='p-3 max-w-4xl mx-auto w-full  post-content'
+        className='p-3 max-w-4xl mx-auto w-full  post-content ql-editor'
         dangerouslySetInnerHTML={{ __html: post && post.content }}
       ></div>
       <div>

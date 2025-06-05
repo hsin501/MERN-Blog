@@ -67,7 +67,6 @@ export default function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('[CreatePost] Submitting formData.content:', formData.content); // <--- 关键日志
     try {
       const res = await fetch('/api/post/create', {
         method: 'POST',

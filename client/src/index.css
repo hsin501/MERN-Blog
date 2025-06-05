@@ -15,61 +15,34 @@ body {
   height: 100vh;
 }
 
-/* 編輯器效果 */
-.ql-editor {
-  font-size: 1.05rem;
+/* 文字編輯器 */
+
+.post-content.ql-editor {
+  overflow-x: hidden;
 }
 
-.post-content p {
-  margin-bottom: 0.5rem;
-  font-size: medium;
-}
-.post-content h1 {
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-  font-family: sans-serif;
-  margin: 1.5rem 0;
-  font-size: xx-large;
-}
-
-.post-content h2 {
-  margin-bottom: 1.4rem;
-  font-family: sans-serif;
-  margin: 1.5rem 0;
-  font-size: x-large;
-}
-.post-content a {
-  color: rgb(73, 149, 199);
-  text-decoration: none;
-}
-
-.post-content a:hover {
-  text-decoration: underline;
-}
-
-.dark .post-content a {
-  color: red;
-}
-
-.post-content pre {
+.post-content .ql-code-block-container {
   background-color: #1e293b;
   border: 1px solid rgb(61, 69, 83);
   color: #e8e7e7;
   white-space: pre-wrap;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 5px;
+  margin-bottom: 1em;
+  font-family: Monaco, Courier New, monospace;
 }
 
-.dark .post-content code {
-  background-color: #1e293b;
-  border: 1px solid rgb(61, 69, 83);
+.post-content .ql-code-block-container .ql-code-block {
+  padding: 0;
 }
+
 .post-content code {
   background-color: #ececec;
   padding: 0.25rem;
   border-radius: 0.25rem;
   font-size: 0.9rem;
+  font-family: Monaco, Courier New, monospace;
 }
 
 .ql-editor blockquote {
@@ -81,14 +54,92 @@ body {
   font-style: italic;
 }
 
-.dark .ql-editor blockquote {
-  border-left: 4px solid #5b677c;
-  color: #b6b5b5;
-  margin: 16px 0;
-  padding: 10px 20px;
-  background-color: #3b475a;
-  font-style: italic;
+/* --- 暗黑模式文章内容樣式 --- */
+.dark .post-content span[style*='color: rgb(0, 0, 0)'],
+.dark .post-content span[style*='color:black'],
+.dark .post-content span[style*='color:#000'],
+.dark .post-content span[style*='color: #000000'],
+.dark .post-content p[style*='color: rgb(0, 0, 0)'],
+.dark .post-content p[style*='color:black'],
+.dark .post-content p[style*='color:#000'],
+.dark .post-content p[style*='color: #000000'],
+.dark .post-content div[style*='color: rgb(0, 0, 0)'],
+.dark .post-content div[style*='color:black'],
+.dark .post-content div[style*='color:#000'],
+.dark .post-content div[style*='color: #000000'],
+.dark .post-content strong[style*='color: rgb(0, 0, 0)'],
+.dark .post-content strong[style*='color:black'],
+.dark .post-content strong[style*='color:#000'],
+.dark .post-content strong[style*='color: #000000'],
+.dark .post-content b[style*='color: rgb(0, 0, 0)'],
+.dark .post-content b[style*='color:black'],
+.dark .post-content b[style*='color:#000'],
+.dark .post-content b[style*='color: #000000'],
+.dark .post-content em[style*='color: rgb(0, 0, 0)'],
+.dark .post-content em[style*='color:black'],
+.dark .post-content em[style*='color:#000'],
+.dark .post-content em[style*='color: #000000'],
+.dark .post-content i[style*='color: rgb(0, 0, 0)'],
+.dark .post-content i[style*='color:black'],
+.dark .post-content i[style*='color:#000'],
+.dark .post-content i[style*='color: #000000'],
+.dark .post-content u[style*='color: rgb(0, 0, 0)'],
+.dark .post-content u[style*='color:black'],
+.dark .post-content u[style*='color:#000'],
+.dark .post-content u[style*='color: #000000'],
+.dark .post-content s[style*='color: rgb(0, 0, 0)'],
+.dark .post-content s[style*='color:black'],
+.dark .post-content s[style*='color:#000'],
+.dark .post-content s[style*='color: #000000'],
+.dark .post-content strike[style*='color: rgb(0, 0, 0)'],
+.dark .post-content strike[style*='color:black'],
+.dark .post-content strike[style*='color:#000'],
+.dark .post-content strike[style*='color: #000000'],
+.dark .post-content del[style*='color: rgb(0, 0, 0)'],
+.dark .post-content del[style*='color:black'],
+.dark .post-content del[style*='color:#000'],
+.dark .post-content del[style*='color: #000000'],
+.dark .post-content li[style*='color: rgb(0, 0, 0)'],
+.dark .post-content li[style*='color:black'],
+.dark .post-content li[style*='color:#000'],
+.dark .post-content li[style*='color: #000000'],
+.dark .post-content li span[style*='color: rgb(0, 0, 0)'],
+.dark .post-content li span[style*='color:black'],
+.dark .post-content li span[style*='color:#000'],
+.dark .post-content li span[style*='color: #000000'],
+.dark .post-content td[style*='color: rgb(0, 0, 0)'],
+.dark .post-content td[style*='color:black'],
+.dark .post-content td[style*='color:#000'],
+.dark .post-content td[style*='color: #000000'],
+.dark .post-content th[style*='color: rgb(0, 0, 0)'],
+.dark .post-content th[style*='color:black'],
+.dark .post-content th[style*='color:#000'],
+.dark .post-content th[style*='color: #000000'] {
+  color: #e4e6e9 !important;
+  background-color: transparent !important;
 }
+
+.dark .post-content a {
+  color: #60a5fa;
+}
+
+.dark .post-content .ql-code-block-container {
+  background-color: #1e293b;
+  border-color: #374151;
+  color: #9ca3af !important;
+}
+
+.dark .post-content code {
+  background-color: #374151;
+  color: #9ca3af !important;
+}
+
+.dark .ql-editor blockquote {
+  border-left-color: #4b5563;
+  color: #9ca3af !important;
+  background-color: #1f2937;
+}
+
 /* 3D */
 .preserve-3d {
   transform-style: preserve-3d;
@@ -115,18 +166,18 @@ body {
 
 /* list自訂 */
 .custom-list {
-  list-style-type: none; /* 移除預設的符號 */
-  padding-left: 0; /* 移除內邊距 */
+  list-style-type: none;
+  padding-left: 0;
 }
 
 .custom-list li {
   display: flex;
-  align-items: flex-start; /* 垂直對齊符號與文字 */
+  align-items: flex-start;
 }
 
 .custom-list li::before {
-  content: '◍'; /* 使用你想要的符號 */
-  padding-right: 8px; /* 符號與文字間距 */
-  margin-top: 2px; /* 調整符號位置以對齊文字 */
-  flex-shrink: 0; /* 確保符號不會因為內容寬度縮小 */
+  content: '◍';
+  padding-right: 8px;
+  margin-top: 2px;
+  flex-shrink: 0;
 }
