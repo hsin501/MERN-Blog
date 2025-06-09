@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, Modal, Table } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { fetchWithAuth } from '../utils/fetchWithAuth';
 
 export default function DashComments() {
   const { currentUser } = useSelector((state) => state.user);
@@ -15,7 +16,7 @@ export default function DashComments() {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await fetch(`/api/comment/getcomments`);
+        const res = await fetchWithAuth(`/api/comment/getcomments`);
         const data = await res.json();
         if (res.ok) {
           setComments(data.comments);
@@ -35,7 +36,7 @@ export default function DashComments() {
   const handleShowMore = async () => {
     const startIndex = comments.length;
     try {
-      const res = await fetch(
+      const res = await fetchWithAuth(
         `/api/comment/getcomments?startIndex=${startIndex}`
       );
       const data = await res.json();

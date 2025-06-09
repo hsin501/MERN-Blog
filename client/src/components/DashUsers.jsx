@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Button, Modal, Table } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import { fetchWithAuth } from '../utils/fetchWithAuth';
 
 export default function DashUsers() {
   const { currentUser } = useSelector((state) => state.user);
@@ -16,7 +17,7 @@ export default function DashUsers() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(`/api/user/getusers?limit=5`);
+        const res = await fetchWithAuth(`/api/user/getusers?limit=5`);
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
@@ -53,7 +54,7 @@ export default function DashUsers() {
 
   const handleDeleteUser = async () => {
     try {
-      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+      const res = await fetchWithAuth(`/api/user/delete/${userIdToDelete}`, {
         method: 'DELETE',
       });
       const data = await res.json();

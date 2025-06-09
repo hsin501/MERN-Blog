@@ -11,7 +11,7 @@ function InfoItem() {
           <div className='mr-14 sm:mr-2'>
             <div className='mr-10 flex items-center'>
               <MdOutlineMenuBook />
-              <h2 className='font-bold text-lg ml-2'>學習經歷</h2>{' '}
+              <h2 className='font-bold text-lg ml-2'>就學經歷</h2>{' '}
             </div>
             <div className=''>
               <p className='pl-6 mt-2'>2016-2018</p>
@@ -45,19 +45,20 @@ function InfoItem() {
         <div className='bg-[#f5f3e6] px-4 py-2 border-2 border-black rounded-lg shadow-lg'>
           <div className='mr-10  flex items-center'>
             <MdWork />
-            <h2 className='font-bold text-lg ml-2'>工作經歷</h2>{' '}
+            <h2 className='font-bold text-lg ml-2'>專案經歷</h2>{' '}
           </div>
           <div className='flex flex-col mt-4'>
             <div className='text-basic leading-relaxed flex flex-col'>
-              <p className=''>2023/08-2024/08 ‖&nbsp;&nbsp;自學前端技術</p>
+              <p className=''>2023/08-2025/06 ‖&nbsp;&nbsp;自學前端技術</p>
               <p className='text-xs'>&nbsp; </p>
             </div>
             <div className='text-sm'>
               <ul className='custom-list'>
-                <li>運用MERN等技術，進行作品製作</li>
+                <li>運用MERN等技術，進行此部落格製作，包含前後端。</li>
                 <li>
                   學習網頁前端技術
-                  Javascript、React、NodeJS、Redux、Gsap、Vite、Express、Tailwind、Less、MongoDB
+                  Javascript、React、NodeJS、Redux、Gsap、Vite、Express、Tailwind、Less、MongoDB、THREE
+                  JS
                 </li>
               </ul>
             </div>

@@ -8,6 +8,7 @@ import {
 } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { fetchWithAuth } from '../utils/fetchWithAuth';
 
 export default function DashBoardComp() {
   const [users, setUsers] = useState([]);
@@ -24,7 +25,7 @@ export default function DashBoardComp() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch('/api/user/getusers?limit=5');
+        const res = await fetchWithAuth('/api/user/getusers?limit=5');
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
@@ -38,7 +39,7 @@ export default function DashBoardComp() {
 
     const fetchPosts = async () => {
       try {
-        const res = await fetch('/api/post/getposts?limit=5');
+        const res = await fetchWithAuth('/api/post/getposts?limit=5');
         const data = await res.json();
         if (res.ok) {
           setPosts(data.posts);
@@ -51,7 +52,7 @@ export default function DashBoardComp() {
     };
     const fetchComments = async () => {
       try {
-        const res = await fetch('/api/comment/getcomments?limit=5');
+        const res = await fetchWithAuth('/api/comment/getcomments?limit=5');
         const data = await res.json();
         if (res.ok) {
           setComments(data.comments);
@@ -59,7 +60,7 @@ export default function DashBoardComp() {
           setLastMonthComments(data.lastMonthComments);
         }
       } catch (error) {
-        console.log(error.message);
+        // console.log(error.message);
       }
     };
     if (currentUser.isAdmin) {

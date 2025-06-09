@@ -15,6 +15,7 @@ import PostPage from './pages/PostPage';
 import ScrollToTop from './components/ScrollTop';
 import Search from './pages/Search';
 import NotFound from './pages/NotFound';
+import SessionMange from './components/SessionManger';
 import './index.css';
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
     <BrowserRouter>
       <ScrollToTop />
       <Header />
+      <SessionMange />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />

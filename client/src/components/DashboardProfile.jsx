@@ -27,6 +27,7 @@ import {
 } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { fetchWithAuth } from '../utils/fetchWithAuth';
 
 export default function DashboardProfile() {
   const { currentUser, error, loading } = useSelector((state) => state.user);
@@ -118,7 +119,7 @@ export default function DashboardProfile() {
 
     try {
       dispatch(updateStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      const res = await fetchWithAuth(`/api/user/update/${currentUser._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -145,7 +146,7 @@ export default function DashboardProfile() {
     setShowModal(false);
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+      const res = await fetchWithAuth(`/api/user/delete/${currentUser._id}`, {
         method: 'DELETE',
       });
       const data = await res.json();
@@ -161,7 +162,7 @@ export default function DashboardProfile() {
 
   const handleSignout = async () => {
     try {
-      const res = await fetch('/api/user/signout', {
+      const res = await fetchWithAuth('/api/user/signout', {
         method: 'POST',
       });
       const data = await res.json();
