@@ -1,6 +1,6 @@
 import { getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { Alert, Button, FileInput, Select, TextInput } from 'flowbite-react';
-import { useState } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import ReactQuill, { Quill } from 'react-quill-new';
 import { getStorage, ref } from 'firebase/storage';
 import { app } from '../firebase';
@@ -11,6 +11,32 @@ import QuillTableBetter from 'quill-table-better';
 import 'react-quill-new/dist/quill.snow.css';
 import 'quill-table-better/dist/quill-table-better.css';
 
+const BlockEmbed = Quill.import('blots/block/embed');
+class IframeBlot extends BlockEmbed {
+  static create(value) {
+    const node = super.create();
+    // 傳入的 value 就是 src 網址
+    node.setAttribute('src', value);
+    // 設定 CodePen 需要的 iframe 屬性
+    node.setAttribute('style', 'width: 100%; height: 300px;');
+    node.setAttribute('scrolling', 'no');
+    node.setAttribute('frameborder', 'no');
+    node.setAttribute('loading', 'lazy');
+    node.setAttribute('allowtransparency', 'true');
+    node.setAttribute('allowfullscreen', 'true');
+    return node;
+  }
+
+  static value(domNode) {
+    // 從 DOM 元素讀取 src 網址
+    return domNode.getAttribute('src');
+  }
+}
+
+// 註冊 Blot，讓 Quill 認識它
+IframeBlot.blotName = 'iframe';
+IframeBlot.tagName = 'iframe'; //直接建立 iframe 標籤
+Quill.register(IframeBlot);
 Quill.register(
   {
     'modules/table-better': QuillTableBetter,
@@ -25,8 +51,9 @@ export default function CreatePost() {
   const [formData, setFormData] = useState({});
   // console.log(formData);
   const [publishError, setPublishError] = useState(null);
-
   const navigate = useNavigate();
+  const quillRef = useRef(null);
+
   const handleUploadImage = async () => {
     try {
       if (!file) {
@@ -89,48 +116,84 @@ export default function CreatePost() {
     }
   };
 
-  const quillModules = {
-    toolbar: {
-      container: [
-        [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        ['bold', 'italic', 'underline', 'strike', 'link'],
-        [{ color: [] }, { background: [] }],
-        [{ list: 'ordered' }, { list: 'bullet' }],
-        [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
-        ['blockquote', 'code-block'],
-        ['image'],
-        ['clean'],
-        ['table-better'],
-      ],
-    },
-    table: false,
-    'table-better': {
-      language: 'en_US',
-      menus: [
-        'column',
-        'row',
-        'merge',
-        'table',
-        'cell',
-        'wrap',
-        'copy',
-        'delete',
-      ],
-      toolbarTable: true,
-      operationMenu: {
-        items: {
-          unmergeCells: { text: 'Unmerge cells' },
-        },
-        color: {
-          colors: ['red', 'green', 'yellow', 'blue', 'white'],
-          text: 'Background Colors:',
+  const handleInsertIframe = () => {
+    const url = prompt('請貼上 CodePen 的 Embed SRC 網址：');
+    if (url && quillRef.current) {
+      const quill = quillRef.current.getEditor();
+      const range = quill.getSelection(true);
+      quill.insertEmbed(range.index, 'iframe', url, 'user');
+    }
+  };
+
+  const quillModules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          ['bold', 'italic', 'underline', 'strike', 'link'],
+          [{ color: [] }, { background: [] }],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
+          ['blockquote', 'code-block'],
+          ['clean'],
+          ['image'],
+          ['iframeButton'],
+          ['table-better'],
+        ],
+
+        handlers: {
+          iframeButton: handleInsertIframe,
         },
       },
-    },
-    keyboard: {
-      bindings: QuillTableBetter.keyboardBindings,
-    },
-  };
+      table: false,
+      'table-better': {
+        language: 'en_US',
+        menus: [
+          'column',
+          'row',
+          'merge',
+          'table',
+          'cell',
+          'wrap',
+          'copy',
+          'delete',
+        ],
+        toolbarTable: true,
+        operationMenu: {
+          items: {
+            unmergeCells: { text: 'Unmerge cells' },
+          },
+          color: {
+            colors: ['red', 'green', 'yellow', 'blue', 'white'],
+            text: 'Background Colors:',
+          },
+        },
+      },
+      keyboard: {
+        bindings: QuillTableBetter.keyboardBindings,
+      },
+    }),
+    []
+  );
+  const quillFormats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'link',
+    'color',
+    'background',
+    'list',
+    'bullet',
+    'indent',
+    'align',
+    'blockquote',
+    'code-block',
+    'image',
+    'table',
+    'iframe',
+  ];
 
   return (
     <div className='p-3 max-w-3xl mx-auto min-h-screen'>
@@ -200,13 +263,25 @@ export default function CreatePost() {
         )}
 
         <ReactQuill
+          ref={quillRef}
           theme='snow'
           placeholder='寫點東西吧'
           className='h-72 mb-12'
           required
           modules={quillModules}
+          formats={quillFormats}
           onChange={(value) => setFormData({ ...formData, content: value })}
         />
+        {/* --- 新增: 自訂按鈕的樣式 (可選) --- */}
+        <style>
+          {`
+            .ql-toolbar .ql-iframeButton::before {
+              content: "🌐"; 
+              font-weight: bold;
+              font-size: 14px;
+            }
+          `}
+        </style>
         <Button type='submit' gradientDuoTone='purpleToPink'>
           發佈
         </Button>
