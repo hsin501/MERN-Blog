@@ -51,13 +51,50 @@ export default function Header() {
   };
 
   return (
-    <Navbar className='border-b-2'>
+    <Navbar className='border-b-2 '>
       <Link
         to='/'
-        className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'
+        className='
+    group 
+    relative 
+    overflow-hidden 
+    rounded-full 
+    p-1 
+    self-center whitespace-nowrap text-xs sm:text-base font-semibold dark:text-white
+    
+  '
       >
-        <span className='px-2 py-1 rounded-lg text-black'>Hsin&apos;s</span>
-        Blog
+        <div
+          className='
+      absolute inset-0 
+      z-0 
+      flex items-center justify-center
+    '
+        >
+          <div
+            className='
+        fancy-gradient      
+        animate-effect      
+        w-24 h-24          
+        rounded-full
+        blur-[20px]        
+        opacity-50       
+        transition-all duration-500 
+        group-hover:w-40 group-hover:h-40 
+        group-hover:opacity-75      
+      '
+          ></div>
+        </div>
+
+        <span
+          className='relative z-10 flex items-center  transition-transform duration-300 
+    group-hover:scale-105'
+        >
+          <span className='px-2 py-1 rounded-full bg-white/70 dark:bg-black/50 text-neutral-800 dark:text-neutral-100 '>
+            Hsin&#39;s
+          </span>
+          <span className='ml-1 mr-2 '>Blog</span>
+        </span>
       </Link>
       <Navbar.Collapse>
         <Navbar.Link active={path === '/about'} as={'div'}>
@@ -71,7 +108,6 @@ export default function Header() {
           <Link to='/search'>BLOG</Link>
         </Navbar.Link>
       </Navbar.Collapse>
-
       <form onSubmit={handleSubmit}>
         <TextInput
           type='text'
@@ -85,7 +121,6 @@ export default function Header() {
       <Button className='w-12 h-10 lg:hidden' color='gray' pill>
         <AiOutlineSearch />
       </Button>
-
       <div className='flex gap-2 md:order-2'>
         <Button
           className='w-12 h-10 hidden sm:inline'

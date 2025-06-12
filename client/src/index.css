@@ -218,3 +218,23 @@ body {
   margin-top: 2px;
   flex-shrink: 0;
 }
+
+@keyframes effect {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.animate-effect {
+  animation: effect 3s linear infinite;
+}
+.fancy-gradient {
+  background: linear-gradient(
+    90deg,
+    rgba(222, 0, 75, 1) 0%,
+    rgba(191, 70, 255, 1) 49%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}

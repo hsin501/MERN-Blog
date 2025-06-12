@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+        spin: 'spin 1s linear infinite',
+      },
       maxWidth: {
         custom: '90rem',
       },

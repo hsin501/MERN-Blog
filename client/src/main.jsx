@@ -5,7 +5,6 @@ import App from './App.jsx';
 // import './index.css';
 import 'react-quill-new/dist/quill.snow.css';
 import 'quill-table-better/dist/quill-table-better.css';
-
 import { store, persistor } from './redux/store.js';
 // redux toolkit
 import { Provider } from 'react-redux';

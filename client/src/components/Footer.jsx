@@ -11,12 +11,46 @@ export default function FooterComponent() {
           <div className='mt-2  col-end-2 flex justify-center'>
             <Link
               to='/'
-              className='self-center whitespace-nowrap text-lg sm:text-xl font-semibold dark:text-white'
+              className='
+    group 
+    relative 
+    overflow-hidden 
+    rounded-full 
+    p-1 
+    self-center whitespace-nowrap text-xs sm:text-base font-semibold dark:text-white
+  '
             >
-              <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to bg-pink-500 rounded-lg text-white'>
-                Hsin&apos;s
+              <div
+                className='
+      absolute inset-0 
+      z-0 
+      flex items-center justify-center
+    '
+              >
+                <div
+                  className='
+        fancy-gradient      
+        animate-effect      
+        w-24 h-24          
+        rounded-full
+        blur-[20px]        
+        opacity-50       
+        transition-all duration-500 
+        group-hover:w-40 group-hover:h-40 
+        group-hover:opacity-75      
+      '
+                ></div>
+              </div>
+
+              <span
+                className='relative z-10 flex items-center  transition-transform duration-300 
+    group-hover:scale-105'
+              >
+                <span className='px-2 py-1 rounded-full bg-white/70 dark:bg-black/50 text-neutral-800 dark:text-neutral-100'>
+                  Hsin&#39;s
+                </span>
+                <span className='ml-1 mr-2 '>Blog</span>
               </span>
-              Blog
             </Link>
           </div>
           <div className=' grid justify-between grid-cols-2 sm:grid-cols-3 mt-2'>
