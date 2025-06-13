@@ -9,6 +9,7 @@ import {
   signInSuccess,
 } from '../redux/user/userSlice';
 import OAuth from '../components/OAuth';
+import LogoLink from '../components/LogoLink';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
@@ -63,12 +64,7 @@ export default function SignIn() {
       <div className='flex p-3 mx-auto max-w-3xl flex-col md:flex-row md:items-center gap-5'>
         {/* left */}
         <div className='flex-1'>
-          <Link to='/' className=' text-4xl font-bold dark:text-white'>
-            <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to bg-pink-500 rounded-lg text-white'>
-              Hsin&apos;s
-            </span>
-            Blog
-          </Link>
+          <LogoLink to='/' size='large'></LogoLink>
           <h1 className='text-2xl mt-5 font-bold'>歡迎回來</h1>
           <p className='text-sm bold'>
             <br></br>請輸入信箱及密碼或使用Google進行登入

@@ -126,7 +126,7 @@ export default function DashboardProfile() {
         },
         body: JSON.stringify(formData),
       });
-      console.log(res);
+      // console.log(res);
       const data = await res.json();
       if (!res.ok) {
         dispatch(updateFailure(data.message));

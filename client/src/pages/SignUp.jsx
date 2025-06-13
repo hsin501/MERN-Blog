@@ -2,6 +2,7 @@ import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import OAuth from '../components/OAuth';
+import LogoLink from '../components/LogoLink';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -53,12 +54,7 @@ export default function SignUp() {
       <div className='flex p-3 mx-auto max-w-3xl flex-col md:flex-row md:items-center gap-5'>
         {/* left */}
         <div className='flex-1'>
-          <Link to='/' className=' text-4xl font-bold dark:text-white'>
-            <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to bg-pink-500 rounded-lg text-white'>
-              Hsin&apos;s
-            </span>
-            Blog
-          </Link>
+          <LogoLink to='/' size='large'></LogoLink>
           <p className='text-sm mt-5'>
             這裡是星星的部落格，你可以使用信箱及密碼或使用Google帳號進行註冊
           </p>

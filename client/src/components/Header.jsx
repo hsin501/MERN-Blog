@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useEffect, useState } from 'react';
+import LogoLink from './LogoLink';
 
 export default function Header() {
   const path = useLocation().pathname;
@@ -52,50 +53,7 @@ export default function Header() {
 
   return (
     <Navbar className='border-b-2 '>
-      <Link
-        to='/'
-        className='
-    group 
-    relative 
-    overflow-hidden 
-    rounded-full 
-    p-1 
-    self-center whitespace-nowrap text-xs sm:text-base font-semibold dark:text-white
-    
-  '
-      >
-        <div
-          className='
-      absolute inset-0 
-      z-0 
-      flex items-center justify-center
-    '
-        >
-          <div
-            className='
-        fancy-gradient      
-        animate-effect      
-        w-24 h-24          
-        rounded-full
-        blur-[20px]        
-        opacity-50       
-        transition-all duration-500 
-        group-hover:w-40 group-hover:h-40 
-        group-hover:opacity-75      
-      '
-          ></div>
-        </div>
-
-        <span
-          className='relative z-10 flex items-center  transition-transform duration-300 
-    group-hover:scale-105'
-        >
-          <span className='px-2 py-1 rounded-full bg-white/70 dark:bg-black/50 text-neutral-800 dark:text-neutral-100 '>
-            Hsin&#39;s
-          </span>
-          <span className='ml-1 mr-2 '>Blog</span>
-        </span>
-      </Link>
+      <LogoLink to='/' className='self-center'></LogoLink>
       <Navbar.Collapse>
         <Navbar.Link active={path === '/about'} as={'div'}>
           <Link to='/about'>About</Link>
