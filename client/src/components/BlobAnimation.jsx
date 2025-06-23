@@ -38,13 +38,15 @@ const BlobAnimation = () => {
       <img
         src='/apple_cartoon.png'
         alt=''
-        className='absolute h-20 w-20 z-10'
+        className='absolute h-28 w-28 z-10'
       />
-      <div className='  relative'>
+      <div className='relative'>
         <svg
           viewBox='0 0 500 500'
           xmlns='http://www.w3.org/2000/svg'
-          width='100%'
+          width='800'
+          height='800'
+          opacity='0.8'
           id='blobSvg'
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
