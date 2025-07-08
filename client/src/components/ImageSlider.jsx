@@ -1,74 +1,143 @@
 import './imageSlider.css';
 import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-// import { testingimage } from '../../public/projectimage/travellist.jpg';
+import { FiExternalLink, FiPlayCircle } from 'react-icons/fi';
 
 const slides = [
   {
     number: '01',
-    title: 'Blog',
-    desc: '部落格,使用技術:',
+    title: 'HSINs Blog部落格 (MERN Stack)',
+    desc: '全端部落格平台，網站擁有者可註冊、登入、發表文章（支援圖片上傳與分類），並對文章進行評論。此專案涵蓋了從前端到後端的完整開發流程與使用者驗證機制。',
+    technologies: [
+      'React',
+      'Redux Toolkit',
+      'Tailwind CSS',
+      'Node.js',
+      'MongoDB',
+    ],
     image:
       'https://www.shutterstock.com/image-vector/simple-racing-start-number-01-260nw-2135058571.jpg',
+    imageStyle: {
+      backgroundSize: 'contain',
+      width: '50%',
+      height: '80%',
+      margin: 'auto',
+    },
+    demoType: 'website',
+    url: 'https://your-blog-live-url.com',
+    gitUrl: 'https://github.com/hsin501/MERN-Blog',
   },
+
   {
     number: '02',
-    title: '肥宅歡樂送',
-    desc: '點餐系統,使用技術:',
-    image: '/projectimage/ordering2.png',
-    url: 'https://hsin501.github.io/Buger_ordering/',
+    title: '書贏由你來決定',
+    desc: '在資策會的團隊專案，一個綜合性電商平台。主要負責建構商品頁面、首頁視覺設計及輪播圖功能。此專案讓我熟悉了團隊 Git 工作流與跨職能協作模式。',
+    technologies: [
+      'HTML、CSS',
+      'JavaScript',
+      'SPRINGBOOT',
+      'MS SQL',
+      'JSP',
+      'JQUERY',
+      'BOOTSTRAP',
+      'GIT',
+    ],
+    image:
+      'https://www.shutterstock.com/image-illustration/06-classic-vintage-sport-jersey-260nw-1385962760.jpg',
+    imageStyle: {
+      backgroundSize: 'contain',
+      width: '50%',
+      height: '80%',
+      margin: 'auto',
+    },
+    demoType: 'video',
+    url: 'https://hsin501.github.io/Travel_list/',
+    gitUrl: 'https://github.com/davidhan85/finalproject',
   },
   {
     number: '03',
-    title: 'Travel List',
-    desc: '旅行打包清單 使用技術:',
-    image: '/projectimage/travellist.png',
-    url: 'https://hsin501.github.io/Travel_list/',
+    title: '蟲幻之地',
+    desc: '為「蟲幻之地」品牌識別設計專案 標誌設計、名片設計與官方網站設計。部屬於 Netlify，並使用 Next.js 框架實現動態路由與響應式設計。',
+    technologies: [
+      'HTML、CSS',
+      'JavaScript',
+      'React',
+      'Next.js',
+      'Framer Motion',
+      'Tailwind CSS',
+      'netlify',
+    ],
+    image: '',
+    imageStyle: {
+      backgroundSize: 'contain',
+      width: '50%',
+      height: '80%',
+      margin: 'auto',
+    },
+    demoType: 'website',
+    url: 'https://insectlands.netlify.app/',
+    gitUrl: 'https://github.com/hsin501/insectlands',
   },
   {
     number: '04',
     title: 'POPCORN',
-    desc: '電影評分網站 使用技術:',
-    image:
-      'https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8Zmxvd2Vyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1296&q=60',
-    url: 'https://hsin501.github.io/Travel_list/',
+    desc: '電影資訊搜索與評分應用。使用者可以搜索電影、查看詳細資訊及評分。此專案的核心在於串接IMDB電影資料庫 API，並有效地處理非同步請求與資料呈現。',
+    technologies: ['HTML、CSS', 'JavaScript', 'React', 'REST API'],
+    image: '/projectimage/popcorn.png',
+    imageStyle: {
+      backgroundSize: 'contain',
+      width: '100%',
+      height: '78%',
+      margin: 'auto',
+      borderRadius: '16px',
+      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
+    },
+    demoType: 'website',
+    url: 'https://hsin501.github.io/POPCORN/',
+    gitUrl: 'https://github.com/hsin501/POPCORN',
   },
   {
     number: '05',
-    title: 'Give Me Money',
-    desc: '算帳系統 使用技術:',
-    image:
-      'https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80',
-    url: 'https://hsin501.github.io/Travel_list/',
+    title: '肥宅歡樂送',
+    desc: '模擬線上點餐流程的網站。此專案使用 React Context API 進行購物車全域狀態管理，並透過 CSS Module 實現元件化樣式。網站完整支援 RWD，確保在各種裝置上都有良好體驗。',
+    technologies: [
+      'HTML、CSS',
+      'JavaScript',
+      'React',
+      'RWD',
+      'Context API',
+      'CSS Module',
+    ],
+    image: '/projectimage/ordering2.png',
+    imageStyle: {
+      backgroundSize: 'contain',
+      width: '80%',
+      height: '90%',
+      margin: 'auto',
+      borderRadius: '16px',
+      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
+    },
+    demoType: 'website',
+    url: 'https://hsin501.github.io/Buger_ordering/',
+    gitUrl: 'https://github.com/hsin501/Buger_ordering',
   },
   {
     number: '06',
-    title: '書贏由你來決定',
-    desc: '商城網站 使用技術:JAVA SPRINGBOOT MSQL HTML CSS JAVASCRIPT JSP',
-    image:
-      'https://www.shutterstock.com/image-illustration/06-classic-vintage-sport-jersey-260nw-1385962760.jpg',
-    url: 'https://hsin501.github.io/Travel_list/',
-  },
-  {
-    number: '07',
-    title: 'Pizza Menu',
-    desc: '菜單網站 使用技術:',
-    image: 'https://d6ce0no7ktiq.cloudfront.net/images/stickers/607.png',
-    url: 'https://hsin501.github.io/Travel_list/',
-  },
-  {
-    number: '08',
-    title: '蟲幻之地',
-    desc: '品牌識別設計專案 標誌設計、名片設計與官方網站設計。 使用技術:',
-    image: '',
-    url: 'https://hsin501.github.io/Travel_list/',
-  },
-  {
-    number: '09',
-    title: '',
-    desc: '品牌識別設計專案 標誌設計、名片設計與官方網站設計。 使用技術:',
-    image: '',
-    url: 'https://hsin501.github.io/Travel_list/',
+    title: 'Give Me Money',
+    desc: '幫助使用者輕鬆計算與追蹤多人帳務的 React 應用。其核心挑戰在於處理複雜的狀態邏輯，實現新增好友、分攤帳單，並精確計算出誰該給誰多少錢。',
+    technologies: ['HTML、CSS', 'JavaScript', 'React'],
+    image: '/projectimage/givememoney.png',
+    imageStyle: {
+      backgroundSize: 'cover',
+      width: '80%',
+      height: '90%',
+      margin: 'auto',
+      borderRadius: '16px',
+      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
+    },
+    demoType: 'website',
+    url: 'https://hsin501.github.io/Give_Me_Money/',
+    gitUrl: 'https://github.com/hsin501/Give_Me_Money',
   },
 ];
 export default function ImageSlider() {
@@ -111,12 +180,67 @@ export default function ImageSlider() {
           <div
             key={index}
             style={{
-              backgroundColor: theme === 'dark' ? '#303c4d' : '#eaeaea',
+              backgroundColor: theme === 'dark' ? '#1a202c' : '#f7fafc',
             }}
+            className='w-full h-full flex items-center justify-center p-8 md:p-16'
           >
-            <div className='numb'>{slide.number}</div>
-            <h1 className='f'>{slide.title}</h1>
-            <p>{slide.desc}</p>
+            <div className='max-w-lg w-full space-y-4 md:space-y-6'>
+              {/* 專案編號 */}
+              <div className='translate-z-0 text-8xl font-bold text-transparent  [-webkit-text-stroke:0.15rem_rgba(220,104,104,0.9)] dark:[-webkit-text-stroke:0.15rem_rgba(220,104,104,0.5)]'>
+                {slide.number}
+              </div>
+              {/* 標題 */}
+              <h1 className='text-3xl md:text-5xl font-extrabold text-gray-800 dark:text-gray-100 '>
+                {slide.title}
+              </h1>
+              {/* 詳細描述 */}
+              <p className='text-base md:text-lg leading-relaxed text-gray-500 dark:text-gray-400'>
+                {slide.desc}
+              </p>
+              {/* 技術標籤 */}
+              <div className='flex flex-wrap gap-2 pt-2'>
+                <span className='font-semibold text-gray-600 dark:text-gray-300'>
+                  使用技術:
+                </span>
+                {slide.technologies.map((tech, i) => (
+                  <span
+                    key={i}
+                    className='px-3 py-1 text-sm rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              {/* 專案連結按鈕 */}
+              <div className='flex items-center gap-4 pt-4'>
+                {slide.url && (
+                  <a
+                    href={slide.url || '#'}
+                    target={slide.demoType === 'website' ? '_blank' : '_self'}
+                    rel='noopener noreferrer'
+                    className='px-6 py-3 font-semibold rounded-lg text-white bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl'
+                  >
+                    查看專案
+                    {slide.demoType === 'website' && (
+                      <FiExternalLink className='inline-block align-middle ml-2' />
+                    )}
+                    {slide.demoType === 'video' && (
+                      <FiPlayCircle className='inline-block align-middle ml-2' />
+                    )}
+                  </a>
+                )}
+                {slide.gitUrl && (
+                  <a
+                    href={slide.gitUrl}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='px-6 py-3 font-semibold rounded-lg border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300'
+                  >
+                    GitHub 原始碼
+                  </a>
+                )}
+              </div>
+            </div>
           </div>
         ))}
       </div>
@@ -128,14 +252,21 @@ export default function ImageSlider() {
           .map((slide, index) => (
             <div
               key={index}
-              style={{
-                backgroundImage: `url(${slide.image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                cursor: 'pointer',
-              }}
-              onClick={() => slide.url && window.open(slide.url, '_blank')}
-            ></div>
+              className='w-full h-full flex items-center justify-center p-4 md:p-8'
+            >
+              <div
+                className='image-container'
+                style={{
+                  backgroundImage: `url(${slide.image})`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center',
+                  cursor: 'pointer',
+                  transition: 'transform 0.3s ease-in-out',
+                  ...(slide.imageStyle || {}),
+                }}
+                onClick={() => slide.url && window.open(slide.url, '_blank')}
+              ></div>
+            </div>
           ))}
       </div>
       <div className='slider-navigation'>
