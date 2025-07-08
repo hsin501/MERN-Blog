@@ -1,140 +1,217 @@
-import { MdOutlineMenuBook, MdWork } from 'react-icons/md';
+/* eslint-disable react/prop-types */
+import { MdCode, MdSchool, MdConstruction } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+
+const MilestoneCard = ({ icon, title, subtitle, children, animationDelay }) => (
+  <div className={`milestone-card w-full max-w-lg`} style={{ animationDelay }}>
+    <div className='flex items-start'>
+      {/* 圖標區：給圖標一個背景色，增加視覺層次和設計感 */}
+      <div className='bg-slate-900 p-2 rounded-lg mr-4 mt-1'>
+        <span className='text-cyan-400'>{icon}</span>
+      </div>
+      {/* 標題與副標題區 */}
+      <div className='flex-1'>
+        <h2 className='font-bold text-xl tracking-wider'>{title}</h2>
+        {subtitle && <p className='mt-1 text-xs text-gray-400'>{subtitle}</p>}
+      </div>
+    </div>
+
+    {/* 內容區 */}
+    <div className='mt-5 sm:pl-[52px] text-sm leading-relaxed text-gray-200'>
+      {children}
+    </div>
+  </div>
+);
 
 function InfoItem() {
+  const frontendSkills = [
+    'HTML',
+    'CSS',
+    'JavaScript (ES6+)',
+    'React',
+    'Redux',
+    'Tailwind CSS',
+    'GSAP',
+    'Three.js',
+  ];
+  const backendSkills = [
+    'Node.js',
+    'Express',
+    'Java',
+    'Spring Boot',
+    'MSSQL',
+    'MongoDB',
+    'RESTful API',
+  ];
+  const designAndTools = [
+    'Git & GitHub',
+    'Vercel',
+    'vite',
+    'VSCode',
+    'Photoshop',
+    'Premiere',
+    'After Effects',
+  ];
+
   return (
-    // <div className='absolute inset-0 border border-blue-500'>
-
-    <div className='absolute inset-0 w-full h-full p-4 flex flex-col justify-between'>
-      {/* 第一區塊：學習經歷 */}
-      <div className='flex items-start justify-end sm:justify-end max-w-[90%] sm:max-w-[45%] w-full ml-auto mt-56'>
-        <div className='bg-[#f5f3e6] px-4 py-2 border-2 border-black rounded-lg shadow-lg flex ]'>
-          <div className='mr-14 sm:mr-2'>
-            <div className='mr-10 flex items-center'>
-              <MdOutlineMenuBook />
-              <h2 className='font-bold text-lg ml-2'>就學經歷</h2>{' '}
-            </div>
-            <div className=''>
-              <p className='pl-6 mt-2'>2016-2018</p>
-              <p className='pl-6'>南臺科技大學 資訊傳播系</p>
-              <br></br>
-              <p className='pl-6 mt-2'>2014-2016</p>
-              <p className='pl-6'>遠東科技大學 工業設計系</p>
-            </div>
-          </div>
-
-          <div className='mt-8 space-y-4 text-sm leading-relaxed border-l-2 border-gray-400 pl-6 '>
-            <p>
-              <span className='font-bold'>專案經驗</span>
-              <ul className='list-disc pl-4'>
-                <li>薪世代畢業專題製作 - 動畫剪輯製作</li>
-                <li>十二年國教知多少、走入街頭抗議的流浪教師 - 動畫製作</li>
-                <li>皮諾丘的眼淚 - 執行製片</li>
-              </ul>
-            </p>
-            <p>
-              <span className='font-bold'>實習經驗</span>
-              <br></br>
-              <li>台南文化創意園區.藝地人專案 - 攝影、剪輯、企劃</li>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* 第二區塊：工作經驗 */}
-      <div className='flex items-center justify-start max-w-[90%] sm:max-w-[45%] w-full'>
-        <div className='bg-[#f5f3e6] px-4 py-2 border-2 border-black rounded-lg shadow-lg'>
-          <div className='mr-10  flex items-center'>
-            <MdWork />
-            <h2 className='font-bold text-lg ml-2'>專案經歷</h2>{' '}
-          </div>
-          <div className='flex flex-col mt-4'>
-            <div className='text-basic leading-relaxed flex flex-col'>
-              <p className=''>2023/08-2025/06 ‖&nbsp;&nbsp;自學前端技術</p>
-              <p className='text-xs'>&nbsp; </p>
-            </div>
-            <div className='text-sm'>
-              <ul className='custom-list'>
-                <li>運用MERN等技術，進行此部落格製作，包含前後端。</li>
-                <li>
-                  學習網頁前端技術
-                  Javascript、React、NodeJS、Redux、Gsap、Vite、Express、Tailwind、Less、MongoDB、THREE
-                  JS
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className='flex flex-col mt-4'>
-            <div className='text-basic leading-relaxed flex flex-col'>
-              <p className=''>
-                2022/12-2023/05 ‖&nbsp;&nbsp;跨域Java軟體工程師就業養成班
+    <div className='absolute inset-0 flex flex-col justify-around py-4'>
+      {/* --- 第一幕: 奠基與啟發 (保持不變) --- */}
+      <div
+        className='
+          absolute top-[5%] left-0 animate-float-in
+          w-full flex justify-center
+          md:w-1/2 md:justify-end md:pr-16
+        '
+        style={{ animationDelay: '0.2s' }}
+      >
+        <MilestoneCard
+          icon={<MdSchool size={24} />}
+          title='奠基與啟發'
+          subtitle='從視覺敘事到工程邏輯，一段尋找熱情的跨域之旅。'
+        >
+          {/* ... 內容不變 ... */}
+          <div className='space-y-4'>
+            <div>
+              <p className='font-semibold text-cyan-300'>
+                2023 ‖ 軟體工程師養成班 (資策會)
               </p>
-              <p className='text-xs'>資展國際股份有限公司(原資策會)</p>
+              <p className='text-xs text-gray-400'>
+                系統化學習 Java
+                與後端開發，並於團隊專案中實作完整功能流程，奠定職場所需技能。
+              </p>
             </div>
-            <div className='text-sm pt-1'>
-              <ul className='list-disc pl-4'>
-                <li>運用JAVA(JSP)、SpringBoot等後端技術，製作後台功能</li>
-                <li>運用Git/GitHub進行版本控管及多人協作</li>
-              </ul>
+            <div>
+              <p className='font-semibold text-cyan-300'>
+                2018 - 2022 ‖ 職涯探索與定向
+              </p>
+              <p className='text-xs text-gray-400'>
+                在多領域的嘗試中，從影視剪輯到國考準備，我逐漸釐清自己對「從無到有、建構事物」的熱情，最終驅使我走向軟體開發。
+              </p>
+            </div>
+            <div>
+              <p className='font-semibold text-cyan-300'>
+                - 2018 ‖ 南臺科大 資訊傳播系
+              </p>
+              <p className='text-xs text-gray-400'>
+                培養了設計美感與使用者體驗思維，成為我日後開發之路的獨特養分。
+              </p>
             </div>
           </div>
-        </div>
+        </MilestoneCard>
       </div>
 
-      {/* 第三區塊：技能 */}
-      <div className='flex items-end justify-end'>
-        <div className='bg-[#f5f3e6] p-4 border-2 border-black rounded-lg shadow-lg flex'>
-          <div className='mr-10'>
-            <h2 className='font-bold text-lg'>學習經歷</h2>
-            <p>2016.02-2018.07</p>
-            <p>南臺科技大學資訊傳播系</p>
-          </div>
+      {/* --- 第二幕: 淬鍊與實踐  --- */}
+      <div
+        className='
+          absolute top-[30%] left-0 animate-float-in
+          w-full flex justify-center
+          md:w-auto md:left-1/2 md:justify-start md:pl-16
+        '
+        style={{ animationDelay: '0.6s' }}
+      >
+        <MilestoneCard
+          icon={<MdConstruction size={24} />}
+          title='淬鍊與實踐'
+          subtitle='密集自主開發期 (2023下半年 - 至今)'
+          className={`
+          milestone-card top-[30%]
+          w-[90%] left-1/2 -translate-x-1/2
+          md:w-auto md:max-w-lg md:left-[calc(50%+4rem)] md:translate-x-0
+        `}
+          animationDelay='0.6s'
+        >
+          <p>
+            課程結束後，我主動持續學習並累積實戰經驗，將理論轉化為實戰能力，獨立完成了超過
+            6+ 個專案深化 React 與 Node.js 技術，並理解資料庫與 API 串接流程。
+          </p>
+          <ul className='list-disc pl-4 mt-3 space-y-1 text-xs'>
+            <li>獨立開發此部落格網站 (React + Node.js)</li>
+            <li>團隊協作專案經驗 (Java + Spring Boot)</li>
+            <li>涵蓋 API 串接、資料庫設計等多樣化主題</li>
+          </ul>
+          <div className='mt-4 flex gap-4'>
+            <Link
+              to='/projects'
+              className='inline-block mt-4 bg-cyan-500/20 text-cyan-300 px-4 py-2 rounded-lg hover:bg-cyan-500/40 transition-all'
+            >
+              → My projects
+            </Link>
 
-          <div className='mt-6 space-y-4 text-sm leading-relaxed '>
-            <p>
-              <span className='font-bold'>專案經驗:</span>
-              <ul className='list-disc ml-6'>
-                <li>2016-2018 薪世代畢業專題製作 - 動畫剪輯製作</li>
-                <li>十二年國教知多少、走入街頭抗議的流浪教師 - 動畫製作</li>
-                <li>皮諾丘的眼淚 - 執行製片</li>
-              </ul>
-            </p>
-            <p>
-              <span className='font-bold'>實習經驗:</span>
-              <br></br> 2017.07-2017.08 台南文化創意園區.藝地人專案 -
-              攝影、剪輯、企劃
-            </p>
-            <p>
-              <span className='font-bold'>參賽經驗:</span>
-              <br></br>校內比賽 - 交通安全藝文競賽 - 第三名<br></br> 校內比賽 -
-              環保再生造型創意競賽 - 佳作獎
-            </p>
+            <a
+              href='https://github.com/hsin501'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='inline-block mt-4 bg-cyan-500/20 text-cyan-300 px-4 py-2 rounded-lg hover:bg-cyan-500/40 transition-all'
+            >
+              → GitHub 專案庫
+            </a>
           </div>
-        </div>
+        </MilestoneCard>
       </div>
 
-      {/* 第四區塊：證照 */}
-      <div className='flex items-end justify-start'>
-        <div className='bg-[#f5f3e6] p-4 border-2 border-black rounded-lg shadow-lg flex'>
-          <div className='mr-10'>
-            <h2 className='font-bold text-lg'>學習經歷</h2>
-            <p>2016.02-2018.07</p>
-            <p>南臺科技大學資訊傳播系</p>
-          </div>
-
-          <div className='mt-6 space-y-4 text-sm leading-relaxed '>
-            <p>
-              <span className='font-bold'>專案經驗:</span>
-              <ul className='list-disc ml-6'>
-                <li>2016-2018 薪世代畢業專題製作 - 動畫剪輯製作</li>
-                <li>十二年國教知多少、走入街頭抗議的流浪教師 - 動畫製作</li>
-                <li>皮諾丘的眼淚 - 執行製片</li>
+      {/* --- 第三幕: 技術 --- */}
+      <div
+        className='
+          absolute top-[60%] left-0 animate-float-in
+          w-full flex justify-center
+          md:w-1/2 md:justify-end md:pr-16
+        '
+        style={{ animationDelay: '1.0s' }}
+      >
+        <MilestoneCard
+          icon={<MdCode size={24} />}
+          title='技術全貌'
+          subtitle='前後端整合能力，持續進化的開發工具箱。'
+          className={`
+          milestone-card top-[60%]
+          w-[90%] left-1/2 -translate-x-1/2
+          md:w-auto md:max-w-lg md:left-auto md:right-[calc(50%+4rem)] md:translate-x-0
+        `}
+          animationDelay='1.0s'
+        >
+          {/* 使用 Grid 佈局來創建清晰的欄位 */}
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4'>
+            {/* 前端欄位 */}
+            <div>
+              <h3 className='font-semibold text-cyan-300 mb-2 border-b border-cyan-800 pb-1'>
+                前端開發
+              </h3>
+              <ul className='list-none mt-2 space-y-1 text-gray-300'>
+                {frontendSkills.map((skill) => (
+                  <li key={skill}>- {skill}</li>
+                ))}
               </ul>
-            </p>
+            </div>
+
+            {/* 後端欄位 */}
+            <div>
+              <h3 className='font-semibold text-cyan-300 mb-2 border-b border-cyan-800 pb-1'>
+                後端開發
+              </h3>
+              <ul className='list-none mt-2 space-y-1 text-gray-300'>
+                {backendSkills.map((skill) => (
+                  <li key={skill}>- {skill}</li>
+                ))}
+              </ul>
+            </div>
+
+            {/* 跨欄位的第三個分類 */}
+            <div className='md:col-span-2'>
+              <h3 className='font-semibold text-cyan-300 mb-2 border-b border-cyan-800 pb-1'>
+                設計 & 工具
+              </h3>
+              <div className='flex flex-wrap gap-2 mt-2'>
+                {designAndTools.map((skill) => (
+                  <span key={skill} className='skill-tag'>
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+        </MilestoneCard>
       </div>
     </div>
   );
 }
-
 export default InfoItem;

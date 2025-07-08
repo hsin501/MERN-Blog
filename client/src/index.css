@@ -238,3 +238,32 @@ body {
     rgba(0, 212, 255, 1) 100%
   );
 }
+
+@layer components {
+  /* 卡片 */
+  .milestone-card {
+    /* 
+      背景
+    */
+    @apply bg-slate-800/70 backdrop-blur-lg rounded-xl border border-white/10 p-6 text-white shadow-2xl;
+    @apply relative; /* 確保偽元素可以相對於它定位 */
+  }
+}
+.skill-tag {
+  @apply bg-cyan-900/60 text-cyan-200 text-sm font-medium px-3 py-1 rounded-full whitespace-nowrap transition-all duration-300 hover:bg-cyan-800/80;
+}
+
+/* 動畫 (保持不變) */
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-float-in {
+  animation: floatIn 0.8s ease-out forwards;
+}

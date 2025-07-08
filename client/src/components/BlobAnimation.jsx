@@ -6,6 +6,10 @@ const BlobAnimation = () => {
   const animationRef = useRef(null);
 
   const handleMouseEnter = () => {
+    if (animationRef.current) {
+      animationRef.current.kill(); // 停止之前的動畫
+      animationRef.current = null;
+    }
     animationRef.current = gsap.to(blobRef.current, {
       duration: 2,
       attr: {
@@ -28,7 +32,7 @@ const BlobAnimation = () => {
         attr: {
           d: 'M452,322Q422,394,356,435Q290,476,220,450Q150,424,126,364Q102,304,66,237Q30,170,83.5,112Q137,54,212.5,43Q288,32,354,69.5Q420,107,451,178.5Q482,250,452,322Z',
         },
-        ease: 'linear',
+        ease: 'power1.out',
       });
     }
   };
