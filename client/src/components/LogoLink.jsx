@@ -54,7 +54,7 @@ export default function LogoLink({ className = '', size = 'base' }) {
         animate-effect            
         rounded-full
         blur-[20px]        
-        opacity-60 
+        opacity-70 
         transition-all duration-500 
         ${currentStyles.gradientSize}
         ${currentStyles.gradientHoverSize}    
