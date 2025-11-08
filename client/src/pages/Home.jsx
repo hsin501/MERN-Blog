@@ -32,40 +32,48 @@ export default function Home() {
   const textRef1 = useRef(null);
   const textRef2 = useRef(null);
   useEffect(() => {
-    gsap.set([textRef1.current, textRef2.current], { xPercent: 0 });
+    if (!textRef1.current || !textRef2.current) return;
 
-    gsap.fromTo(
-      textRef1.current,
-      { xPercent: 0 },
-      {
-        xPercent: -100,
-        duration: 10,
-        repeat: -1,
-        ease: 'linear',
-        scrollTrigger: {
-          trigger: textRef1.current,
-          start: 'bottom center',
-          end: 'top 5%',
-          toggleActions: 'play pause resume pause',
-        },
-      }
-    );
-    gsap.fromTo(
-      textRef2.current,
-      { xPercent: -34 },
-      {
-        xPercent: 100,
-        duration: 10,
-        repeat: -1,
-        ease: 'linear',
-        scrollTrigger: {
-          trigger: textRef1.current,
-          start: 'bottom center',
-          end: 'top 5%',
-          toggleActions: 'play pause resume pause',
-        },
-      }
-    );
+    // 為了讓動畫精準，我們先複製成剛好兩份
+    const spans1 = textRef1.current.querySelectorAll('span');
+    if (spans1.length > 0) {
+      const contentWidth = spans1[0].offsetWidth;
+      textRef1.current.style.width = `${contentWidth * 2}px`; // 設定總寬度為兩份
+      textRef1.current.appendChild(spans1[0].cloneNode(true));
+    }
+    const spans2 = textRef2.current.querySelectorAll('span');
+    if (spans2.length > 0) {
+      const contentWidth = spans2[0].offsetWidth;
+      textRef2.current.style.width = `${contentWidth * 2}px`;
+      textRef2.current.appendChild(spans2[0].cloneNode(true));
+    }
+    gsap.to(textRef1.current, {
+      x: '-50%',
+      duration: 40,
+      repeat: -1,
+      ease: 'linear',
+      scrollTrigger: {
+        trigger: textRef1.current,
+        start: 'top bottom',
+        end: 'bottom top',
+        toggleActions: 'play pause resume pause',
+      },
+    });
+
+    // 動畫2: 向右滾動
+    gsap.set(textRef2.current, { x: '-50%' });
+    gsap.to(textRef2.current, {
+      x: '0%',
+      duration: 60,
+      repeat: -1,
+      ease: 'linear',
+      scrollTrigger: {
+        trigger: textRef1.current,
+        start: 'top bottom',
+        end: 'bottom top',
+        toggleActions: 'play pause resume pause',
+      },
+    });
   }, []);
 
   // 監聽 Spline 區域的滾動進入事件
@@ -130,20 +138,28 @@ export default function Home() {
           查看所有文章
         </Link>
       </div>
-      <div className='p-3 bg-amber-100 dark:bg-slate-700 h-48 overflow-hidden'>
+      <div className='p-3 bg-zinc-200 dark:bg-slate-700 h-48 overflow-hidden flex flex-col justify-center'>
         <h1
           ref={textRef1}
-          className='text-8xl font-bold whitespace-nowrap lg:text-xl'
+          className='text-4xl font-bold whitespace-nowrap lg:text-3xl'
         >
-          &nbsp;&nbsp;求職中 ...&nbsp;&nbsp; 求職中 ... &nbsp;&nbsp;求職中 ...
-          &nbsp;&nbsp;求職中 ... &nbsp;&nbsp;求職中 ... &nbsp;&nbsp;求職中 ...
-          &nbsp;&nbsp;求職中 ... &nbsp;&nbsp;求職中 ...
+          <span>
+            &nbsp;&nbsp;求職中 ...&nbsp;&nbsp; 求職中 ... &nbsp;&nbsp;求職中 ...
+            &nbsp;&nbsp;求職中 ... &nbsp;&nbsp;求職中 ...&nbsp;&nbsp; 求職中 ...
+            &nbsp;&nbsp;求職中 ... &nbsp;&nbsp;求職中 ...&nbsp;&nbsp;求職中 ...
+          </span>
         </h1>
         <p
           ref={textRef2}
-          className='text-6xl font-bold whitespace-nowrap mt-3 text-red-300'
+          className='text-6xl font-bold whitespace-nowrap mt-3 text-red-300  flex'
         >
-          歡迎聯繫&nbsp;⎝(๑•̀ω•́๑)⎠
+          <span>
+            &nbsp;歡迎聯繫 ⎝(๑•̀ω•́๑)⎠&nbsp;&nbsp;歡迎聯繫
+            ⎝(๑•̀ω•́๑)⎠&nbsp;&nbsp;歡迎聯繫 ⎝(๑•̀ω•́๑)⎠&nbsp; &nbsp;歡迎聯繫
+            ⎝(๑•̀ω•́๑)⎠&nbsp;&nbsp;歡迎聯繫 ⎝(๑•̀ω•́๑)⎠&nbsp;&nbsp;歡迎聯繫
+            ⎝(๑•̀ω•́๑)⎠&nbsp; &nbsp;歡迎聯繫 ⎝(๑•̀ω•́๑)⎠&nbsp;&nbsp;歡迎聯繫
+            ⎝(๑•̀ω•́๑)⎠&nbsp;&nbsp;歡迎聯繫 ⎝(๑•̀ω•́๑)⎠&nbsp;
+          </span>
         </p>
       </div>
       <div className='max-w-custom mx-auto p-3 flex flex-col gap-8 py-7 '>
