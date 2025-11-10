@@ -40,9 +40,9 @@ const BlobAnimation = () => {
   return (
     <div className='flex justify-center items-center cursor-pointer'>
       <img
-        src='/apple_cartoon.png'
-        alt=''
-        className='absolute h-28 w-28 z-10'
+        src='/me.png'
+        alt='me'
+        className='absolute object-cover h-80 z-10 pointer-events-none'
       />
       <div className='relative'>
         <svg

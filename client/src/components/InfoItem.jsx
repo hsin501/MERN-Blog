@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom';
 const MilestoneCard = ({ icon, title, subtitle, children, animationDelay }) => (
   <div className={`milestone-card w-full max-w-lg`} style={{ animationDelay }}>
     <div className='flex items-start'>
-      {/* 圖標區：給圖標一個背景色，增加視覺層次和設計感 */}
-      <div className='bg-slate-900 p-2 rounded-lg mr-4 mt-1'>
-        <span className='text-cyan-400'>{icon}</span>
+      <div className='bg-slate-800/50 p-2 rounded-lg mr-4 mt-1'>
+        <span className='text-sky-300'>{icon}</span>
       </div>
       {/* 標題與副標題區 */}
       <div className='flex-1'>
@@ -55,7 +54,7 @@ function InfoItem() {
 
   return (
     <div className='absolute inset-0 flex flex-col justify-around py-4'>
-      {/* --- 第一幕: 奠基與啟發 (保持不變) --- */}
+      {/* --- 第一幕: 奠基與啟發  --- */}
       <div
         className='
           absolute top-[5%] left-0 animate-float-in
@@ -69,31 +68,33 @@ function InfoItem() {
           title='奠基與啟發'
           subtitle='從視覺敘事到工程邏輯，一段尋找熱情的跨域之旅。'
         >
-          {/* ... 內容不變 ... */}
           <div className='space-y-4'>
             <div>
-              <p className='font-semibold text-cyan-300'>
+              <p className='font-semibold text-sky-300'>
                 2023 ‖ 軟體工程師養成班 (資策會)
               </p>
               <p className='text-xs text-gray-400'>
-                系統化學習 Java
-                與後端開發，並於團隊專案中實作完整功能流程，奠定職場所需技能。
+                透過系統化的 Java
+                與後端開發訓練，第一次體會到「把想法變成能運作的系統」的成就感。
+                在團隊專案中，我學會了如何從需求拆解到實作，真正走進軟體開發的世界。
               </p>
             </div>
             <div>
-              <p className='font-semibold text-cyan-300'>
+              <p className='font-semibold text-sky-300'>
                 2018 - 2022 ‖ 職涯探索與定向
               </p>
               <p className='text-xs text-gray-400'>
-                在多領域的嘗試中，從影視剪輯到國考準備，我逐漸釐清自己對「從無到有、建構事物」的熱情，最終驅使我走向軟體開發。
+                那幾年嘗試過影視剪輯與設計，也曾準備國考。雖然方向多變，但每一次經驗都讓我更確定：
+                我熱愛的是「從無到有地創造」，無論是畫面還是程式。
               </p>
             </div>
             <div>
-              <p className='font-semibold text-cyan-300'>
+              <p className='font-semibold text-sky-300'>
                 - 2018 ‖ 南臺科大 資訊傳播系
               </p>
               <p className='text-xs text-gray-400'>
-                培養了設計美感與使用者體驗思維，成為我日後開發之路的獨特養分。
+                在設計與多媒體的訓練中，培養了對畫面美感的敏銳度。
+                這份美感與敘事能力，也成為我之後開發產品時的重要養分。
               </p>
             </div>
           </div>
@@ -132,7 +133,7 @@ function InfoItem() {
           <div className='mt-4 flex gap-4'>
             <Link
               to='/projects'
-              className='inline-block mt-4 bg-cyan-500/20 text-cyan-300 px-4 py-2 rounded-lg hover:bg-cyan-500/40 transition-all'
+              className='inline-block mt-4 bg-amber-300 text-gray-800 px-4 py-2 rounded-xl hover:bg-amber-200 transition-all'
             >
               → My projects
             </Link>
@@ -141,7 +142,7 @@ function InfoItem() {
               href='https://github.com/hsin501'
               target='_blank'
               rel='noopener noreferrer'
-              className='inline-block mt-4 bg-cyan-500/20 text-cyan-300 px-4 py-2 rounded-lg hover:bg-cyan-500/40 transition-all'
+              className='inline-block mt-4 bg-amber-300 text-slate-900 px-4 py-2 rounded-xl hover:bg-amber-200 transition-all'
             >
               → GitHub 專案庫
             </a>
@@ -169,11 +170,10 @@ function InfoItem() {
         `}
           animationDelay='1.0s'
         >
-          {/* 使用 Grid 佈局來創建清晰的欄位 */}
           <div className='grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4'>
             {/* 前端欄位 */}
             <div>
-              <h3 className='font-semibold text-cyan-300 mb-2 border-b border-cyan-800 pb-1'>
+              <h3 className='font-semibold text-sky-300 mb-2 border-b border-sky-900 pb-1'>
                 前端開發
               </h3>
               <ul className='list-none mt-2 space-y-1 text-gray-300'>
@@ -185,7 +185,7 @@ function InfoItem() {
 
             {/* 後端欄位 */}
             <div>
-              <h3 className='font-semibold text-cyan-300 mb-2 border-b border-cyan-800 pb-1'>
+              <h3 className='font-semibold text-sky-300 mb-2 border-b border-sky-900 pb-1'>
                 後端開發
               </h3>
               <ul className='list-none mt-2 space-y-1 text-gray-300'>
@@ -195,9 +195,9 @@ function InfoItem() {
               </ul>
             </div>
 
-            {/* 跨欄位的第三個分類 */}
+            {/* 第三個分類 */}
             <div className='md:col-span-2'>
-              <h3 className='font-semibold text-cyan-300 mb-2 border-b border-cyan-800 pb-1'>
+              <h3 className='font-semibold text-sky-300 mb-2 border-b border-sky-900 pb-1'>
                 設計 & 工具
               </h3>
               <div className='flex flex-wrap gap-2 mt-2'>
