@@ -89,10 +89,28 @@ const slides = [
     },
     demoType: 'website',
     url: 'https://insectlands.netlify.app/',
-    gitUrl: 'https://github.com/hsin501/insectlands',
+    gitUrl: 'https://insectlands.netlify.app/',
   },
   {
     number: '04',
+    title: 'goodnight｜沉靜夜間護膚互動頁面',
+    desc: '一個以夜間護膚品牌為主題的互動式網頁作品，結合 Three.js 實作的產品 3D 檢視、視差星空與雲層背景、滑動觸發的流星效果與輕量購物車。主打流暢的 3D 互動體驗與行動優化，採用懶載入與 scissor 渲染等效能優化技術。',
+    technologies: ['Three.js', 'GSAP', 'Lenis', 'Vite', 'localStorage'],
+    image: '/projectimage/goodnight.png',
+    imageStyle: {
+      backgroundSize: 'cover',
+      width: '90%',
+      height: '90%',
+      margin: 'auto',
+      borderRadius: '16px',
+      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
+    },
+    demoType: 'website',
+    url: 'https://hsin501.github.io/goodnight/',
+    gitUrl: 'https://github.com/hsin501/goodnight',
+  },
+  {
+    number: '05',
     title: 'POPCORN',
     desc: '電影資訊搜索與評分應用。使用者可以搜索電影、查看詳細資訊及評分。此專案的核心在於串接IMDB電影資料庫 API，並有效地處理非同步請求與資料呈現。',
     technologies: ['HTML、CSS', 'JavaScript', 'React', 'REST API'],
@@ -110,7 +128,7 @@ const slides = [
     gitUrl: 'https://github.com/hsin501/POPCORN',
   },
   {
-    number: '05',
+    number: '06',
     title: '肥宅歡樂送',
     desc: '模擬線上點餐流程的網站。此專案使用 React Context API 進行購物車全域狀態管理，並透過 CSS Module 實現元件化樣式。網站完整支援 RWD，確保在各種裝置上都有良好體驗。',
     technologies: [
@@ -135,7 +153,7 @@ const slides = [
     gitUrl: 'https://github.com/hsin501/Buger_ordering',
   },
   {
-    number: '06',
+    number: '07',
     title: 'Give Me Money',
     desc: '幫助使用者輕鬆計算與追蹤多人帳務的 React 應用。其核心挑戰在於處理複雜的狀態邏輯，實現新增好友、分攤帳單，並精確計算出誰該給誰多少錢。',
     technologies: ['HTML、CSS', 'JavaScript', 'React'],
