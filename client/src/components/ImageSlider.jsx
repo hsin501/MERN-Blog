@@ -34,7 +34,7 @@ const slides = [
       boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
     },
     demoType: 'website',
-    url: 'https://your-blog-live-url.com',
+    url: 'https://mern-blog-bhud.onrender.com/',
     gitUrl: 'https://github.com/hsin501/MERN-Blog',
   },
 
